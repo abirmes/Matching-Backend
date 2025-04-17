@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->dateTime('date-naissance');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->unsignedBigInteger('role-id');
+            $table->dateTime('date-debut');
+            $table->dateTime('date-fin');
+            $table->integer('max-participants');
+            $table->integer('max-participants');
+            $table->unsignedBigInteger('type-id');
+            $table->foreign('type-id')->references('id')->on('types');
             $table->unsignedBigInteger('adresse-id');
-            $table->foreign('role-id')->references('id')->on('roles');
             $table->foreign('adresse-id')->references('id')->on('adresses');
-            $table->rememberToken();
             $table->timestamps();
             $table->engine = 'InnoDB';
 
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('activities');
     }
 };
