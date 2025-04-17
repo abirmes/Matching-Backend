@@ -20,7 +20,25 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    public function role()
+    {
+      return $this->belongsTo(Role::class);
+    }
+
+    public function adresse()
+    {
+      return $this->belongsTo(Adresse::class);
+    }
+
+    public function teams()
+    {
+      return $this->belongsToMany(Team::class);
+    }
     
+    public function activities()
+    {
+      return $this->belongsToMany(Activity::class);
+    }
     
     protected $hidden = [
         'password',

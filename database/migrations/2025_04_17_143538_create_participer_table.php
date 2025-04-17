@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('participer', function (Blueprint $table) {
             $table->id();
             $table->integer('participater-number')->unique();
-            $table->string('');
-            $table->unsignedBigInteger('user-id');
             $table->unsignedBigInteger('user-id');
             $table->foreign('user-id')->references('id')->on('users');
             $table->unsignedBigInteger('team-id');
