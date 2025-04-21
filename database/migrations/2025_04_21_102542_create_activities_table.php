@@ -17,7 +17,7 @@ return new class extends Migration
             $table->dateTime('date-debut');
             $table->dateTime('date-fin');
             $table->integer('max-participants');
-            $table->integer('max-participants');
+            $table->integer('min-participants');
             $table->unsignedBigInteger('type-id');
             $table->foreign('type-id')->references('id')->on('types');
             $table->unsignedBigInteger('adresse-id');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('number');
             $table->unsignedBigInteger('activity-id');
-            $table->foreign('activity-id')->references('id')->on('activies');
+            $table->foreign('activity-id')->references('id')->on('activities');
             $table->timestamps();
             $table->engine = 'InnoDB';
 

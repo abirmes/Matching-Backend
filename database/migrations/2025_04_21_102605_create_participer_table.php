@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreign('user-id')->references('id')->on('users');
             $table->unsignedBigInteger('team-id');
             $table->foreign('team-id')->references('id')->on('teams');
-            $table->unsignedBigInteger('acivity-id');
-            $table->foreign('acivity-id')->references('id')->on('acivities');
+            $table->unsignedBigInteger('activity-id');
+            $table->foreign('activity-id')->references('id')->on('activities');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
