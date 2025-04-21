@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('etat');
             $table->string('specialite');
-            $table->unsignedBigInteger('adresse-id');
-            $table->foreign('adresse-id')->references('id')->on('adresses');
+            $table->unsignedBigInteger('adresse_id');
+            $table->foreign('adresse_id')->references('id')->on('adresses');
             $table->timestamps();
             $table->engine = 'InnoDB';
 

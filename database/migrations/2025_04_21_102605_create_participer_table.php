@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('participer', function (Blueprint $table) {
             $table->id();
             $table->integer('participater-number')->unique();
-            $table->unsignedBigInteger('user-id');
-            $table->foreign('user-id')->references('id')->on('users');
-            $table->unsignedBigInteger('team-id');
-            $table->foreign('team-id')->references('id')->on('teams');
-            $table->unsignedBigInteger('activity-id');
-            $table->foreign('activity-id')->references('id')->on('activities');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('team_id');
+            $table->foreign('team_id')->references('id')->on('teams');
+            $table->unsignedBigInteger('activity_id');
+            $table->foreign('activity_id')->references('id')->on('activities');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

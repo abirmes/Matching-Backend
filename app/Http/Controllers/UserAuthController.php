@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adresse;
+use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
@@ -37,23 +39,25 @@ class UserAuthController extends Controller
         } catch(Exception $e){
             return $e->getMessage();
         }
+
+        $adresse = new Adresse();
+        $adresse->boulevard = $registerUserData['boulevard'];
+        $adresse->city = $registerUserData['city'];
+        $adresse->country = $registerUserData['country'];
+        $adresse->save();
+
+        $role = Role::where('name' , 'utilisateur')->first();
+
         
         $user = new User();
         $user->name = $registerUserData['name'] ;
         $user->email = $registerUserData['email'] ;
         $user->date_naissance = $registerUserData['date_naissance'] ;
         $user->password = $registerUserData['password'] ;
-
-        return $user;
-
-        
-        $user = User::create([
-            'name' => $registerUserData['name'],
-            'email' => $registerUserData['email'],
-            'date_naissance' => $registerUserData['date_naissance'],
-            'password' => Hash::make($registerUserData['password']),
-        ]);
-        return redirect()->route('activities');
+        $user->adresse()->associate($adresse);
+        $user->role()->associate($role);
+        $user->save();
+        return redirect()->route('home');
     }
 
     public function login(Request $request)
@@ -67,7 +71,7 @@ class UserAuthController extends Controller
             return redirect()->route('login')->with('password incorrect');
         }
         $token = $user->createToken($user->name . '-AuthToken')->plainTextToken;
-        return redirect()->route('welcome');
+        return redirect()->route('home');
     }
     public function logout()
     {
