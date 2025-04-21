@@ -15,14 +15,14 @@
             Schema::create('users', function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
-                $table->dateTime('date-naissance');
+                $table->date('date_naissance');
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
-                $table->unsignedBigInteger('role-id');
-                $table->unsignedBigInteger('adresse-id');
-                $table->foreign('role-id')->references('id')->on('roles');
-                $table->foreign('adresse-id')->references('id')->on('adresses');
+                $table->unsignedBigInteger('role_id');
+                $table->unsignedBigInteger('adresse_id');
+                $table->foreign('role_id')->references('id')->on('roles');
+                $table->foreign('adresse_id')->references('id')->on('adresses');
                 $table->rememberToken();
                 $table->timestamps();
                 $table->engine = 'InnoDB';

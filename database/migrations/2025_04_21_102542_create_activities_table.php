@@ -17,11 +17,11 @@ return new class extends Migration
             $table->dateTime('date-debut');
             $table->dateTime('date-fin');
             $table->integer('max-participants');
-            $table->integer('max-participants');
-            $table->unsignedBigInteger('type-id');
-            $table->foreign('type-id')->references('id')->on('types');
-            $table->unsignedBigInteger('adresse-id');
-            $table->foreign('adresse-id')->references('id')->on('adresses');
+            $table->integer('min-participants');
+            $table->unsignedBigInteger('type_id');
+            $table->foreign('type_id')->references('id')->on('types');
+            $table->unsignedBigInteger('adresse_id');
+            $table->foreign('adresse_id')->references('id')->on('adresses');
             $table->timestamps();
             $table->engine = 'InnoDB';
 
