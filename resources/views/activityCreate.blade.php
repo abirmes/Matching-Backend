@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +11,23 @@
       background-color: #fcf5f8;
       background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ec4899' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     }
-    
+
     .form-container {
       max-width: 700px;
     }
-    
-    input:focus, select:focus, textarea:focus {
+
+    input:focus,
+    select:focus,
+    textarea:focus {
       border-color: #ec4899;
       box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
     }
   </style>
 </head>
+
 <body class="bg-pattern min-h-screen">
   <!-- Header -->
-  <header class="bg-white shadow-md py-2 sticky top-0 z-10">
+  <header class="bg-white shadow-md py-3 sticky top-0 z-10">
     <div class="container mx-auto px-4">
       <nav class="flex items-center justify-between">
         <div class="text-xl font-bold text-blue-800">
@@ -34,10 +38,16 @@
           <a href="/activities" class="text-gray-700 hover:text-pink-500 px-1">Activities</a>
           <a href="/create" class="text-pink-600 font-medium border-b-2 border-pink-500 px-1">Create</a>
         </div>
+        @if ( !Auth::user()->name )
         <div class="flex space-x-3">
           <a href="/register" class="text-pink-600 hover:text-pink-700 font-medium">Register</a>
-          <a href="/login" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-1 rounded-full text-sm shadow-md">Sign In</a>
+          <a href="/login" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-1.5 rounded-full text-sm shadow-md">Sign In</a>
         </div>
+        @elseif ( Auth::user()->name )
+        <div class="flex space-x-3">
+          <a href="/logout" class="text-pink-600 hover:text-pink-700 font-medium">Logout</a>
+        </div>
+        @endif
       </nav>
     </div>
   </header>
@@ -58,21 +68,21 @@
           <!-- Name -->
           <div>
             <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Activity Name</label>
-            <input id="name" type="text" placeholder="Enter activity name" required 
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <input id="name" type="text" placeholder="Enter activity name" required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
           </div>
 
           <!-- Date Range -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label for="date-debut" class="block text-sm font-medium text-gray-700 mb-1">Start Date & Time</label>
-              <input id="date-debut" type="datetime-local" required 
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <input id="date-debut" type="datetime-local" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
             </div>
             <div>
               <label for="date-fin" class="block text-sm font-medium text-gray-700 mb-1">End Date & Time</label>
-              <input id="date-fin" type="datetime-local" required 
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <input id="date-fin" type="datetime-local" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
             </div>
           </div>
 
@@ -80,13 +90,13 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label for="min-participants" class="block text-sm font-medium text-gray-700 mb-1">Minimum Participants</label>
-              <input id="min-participants" type="number" min="1" value="2" required 
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <input id="min-participants" type="number" min="1" value="2" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
             </div>
             <div>
               <label for="max-participants" class="block text-sm font-medium text-gray-700 mb-1">Maximum Participants</label>
-              <input id="max-participants" type="number" min="1" value="10" required 
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <input id="max-participants" type="number" min="1" value="10" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
             </div>
           </div>
 
@@ -94,8 +104,8 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label for="type_id" class="block text-sm font-medium text-gray-700 mb-1">Activity Type</label>
-              <select id="type_id" required 
-                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <select id="type_id" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                 <option value="" disabled selected>Select type</option>
                 <option value="1">Individual</option>
                 <option value="2">Group</option>
@@ -107,8 +117,8 @@
             </div>
             <div>
               <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-              <select id="category" required 
-                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <select id="category" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                 <option value="" disabled selected>Select category</option>
                 <option value="1">Sports</option>
                 <option value="2">Music</option>
@@ -125,38 +135,38 @@
           <!-- Address/Location Section -->
           <div class="border-t border-gray-200 pt-4 mt-2">
             <h2 class="text-lg font-medium text-gray-800 mb-3">Activity Location</h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label for="center" class="block text-sm font-medium text-gray-700 mb-1">Center Name</label>
-                <input id="center" type="text" placeholder="Activity center name" 
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <input id="center" type="text" placeholder="Activity center name"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
               </div>
               <div>
                 <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                <input id="city" type="text" placeholder="City" required 
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <input id="city" type="text" placeholder="City" required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
               </div>
             </div>
-            
+
             <div class="grid grid-cols-1 gap-4 mb-4">
               <div>
                 <label for="street" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
-                <input id="street" type="text" placeholder="Street address" required 
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <input id="street" type="text" placeholder="Street address" required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
               </div>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
-                <input id="postal_code" type="text" placeholder="Postal code" required 
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <input id="postal_code" type="text" placeholder="Postal code" required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
               </div>
               <div>
                 <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                <input id="country" type="text" placeholder="Country" required 
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <input id="country" type="text" placeholder="Country" required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
               </div>
             </div>
           </div>
@@ -183,8 +193,8 @@
 
           <!-- Submit Button -->
           <div class="pt-4">
-            <button type="submit" 
-                   class="w-full py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all">
+            <button type="submit"
+              class="w-full py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all">
               Create Activity
             </button>
           </div>
@@ -228,7 +238,7 @@
   <script>
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
-    
+
     // Handle image preview
     document.getElementById('image').addEventListener('change', function(event) {
       const file = event.target.files[0];
@@ -241,11 +251,11 @@
         reader.readAsDataURL(file);
       }
     });
-    
+
     // Form submission
     document.getElementById('activityForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      
+
       // Create form data object
       const formData = {
         name: document.getElementById('name').value,
@@ -255,28 +265,17 @@
         'max-participants': document.getElementById('max-participants').value,
         type_id: document.getElementById('type_id').value,
         category: document.getElementById('category').value,
-        
-        // Address fields
         center: document.getElementById('center').value,
         street: document.getElementById('street').value,
         city: document.getElementById('city').value,
         postal_code: document.getElementById('postal_code').value,
         country: document.getElementById('country').value,
-        
-        // Image
         image: document.getElementById('image').files[0] ? document.getElementById('image').files[0].name : null
       };
-      
-      // Log form data (in a real app, you would send this to a server)
       console.log('Form submitted:', formData);
-      
-      // Show success message
       alert('Activity created successfully!');
-      
-      // Optional: reset form
-      // this.reset();
-      // document.getElementById('imagePreview').classList.add('hidden');
     });
   </script>
 </body>
+
 </html>

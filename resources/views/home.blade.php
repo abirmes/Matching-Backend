@@ -61,7 +61,6 @@
 
 <body>
     <div class="min-h-screen bg-pattern">
-        <!-- Header -->
         <header class="bg-white shadow-md py-3 sticky top-0 z-10">
             <div class="container mx-auto px-4">
                 <nav class="flex items-center justify-between">
@@ -69,9 +68,9 @@
                         Matching<span class="text-pink-500">.</span>
                     </div>
                     <div class="hidden md:flex space-x-5">
-                        <a href="#" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
+                        <a href="/home" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
                         <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
-                        <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
+                        <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                     </div>
                     @if ( !Auth::user()->name )
                     <div class="flex space-x-3">
