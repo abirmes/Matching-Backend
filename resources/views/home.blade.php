@@ -29,10 +29,12 @@
         .transition-all {
             transition: all 0.3s ease;
         }
+
         :focus {
             outline: 2px solid #db2777;
             outline-offset: 2px;
         }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -61,21 +63,24 @@
                         Matching<span class="text-pink-500">.</span>
                     </div>
                     <div class="hidden md:flex space-x-5">
+                        @if ( Auth::check() && Auth::user()->role->name === "admin")
+                        <a href="/dashboard" class="text-gray-700 hover:text-blue-600 px-1">Dashboard</a>
+                        @endif
                         <a href="/home" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
                         <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
                         <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                     </div>
-                    @if ( !Auth::user() )
+                    @guest
                     <div class="flex space-x-3">
                         <a href="/register" class="text-pink-600 hover:text-pink-700 font-medium">Register</a>
                         <a href="/login" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-1.5 rounded-full text-sm shadow-md">Sign In</a>
                     </div>
-                    @elseif ( Auth::user() )
+                    @else
                     <div class="flex space-x-3">
                         <a href="/logout" class="text-pink-600 hover:text-pink-700 font-medium">Logout</a>
                     </div>
-                    @endif
-                    
+                    @endguest
+
                 </nav>
             </div>
         </header>
@@ -226,7 +231,12 @@
                                     {{ $activity['participants'] >= $activity['max_participants'] ? 'Full' : 'Join Now' }}
                                 </button>
                             </form>
+                            <a href="/activity/{{ $activity['id'] }}"
+                                class="mt-3 inline-block w-full text-center py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all">
+                                Show Detail
+                            </a>
                         </div>
+
                     </div>
                 </div>
                 @endforeach

@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Center extends Model
+class Centre extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'etat',
+        'name',
+        'specialite'
+    ];
 
     public function activities()
     {

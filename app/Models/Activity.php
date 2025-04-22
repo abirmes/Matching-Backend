@@ -23,9 +23,9 @@ class Activity extends Model
       return $this->belongsToMany(User::class);
     }
 
-    public function center()
+    public function centre()
     {
-        return $this->belongsTo(Center::class);
+        return $this->belongsTo(Centre::class);
     }
     public function type()
     {

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CenterController;
+use App\Http\Controllers\CentreController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserAuthController;
 use App\Models\Categorie;
@@ -28,9 +29,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/', function () {
     return view('home');
 })->name('home');
-Route::get('/activityCreate', function () {
-    return view('activityCreate');
-});
+
+Route::get('/categories', function () {
+    return view('/admin/categories');
+})->name('categories');
+
+
+Route::get('/activityCreate', [ActivityController::class, 'create'])->name('activities.create');
 
 
 Route::get('/register', [UserAuthController::class, 'registerPage']);
@@ -41,16 +46,18 @@ Route::post('/register' , [UserAuthController::class , 'register'])->name('regis
 Route::get('/login', [UserAuthController::class, 'loginPage']);
 Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
-Route::get('/activity/create' , [ActivityController::class , 'create'])->name('activity.create');
-Route::post('/activity/create' , [ActivityController::class , 'store'])->name('activity.store');
+Route::get('/activity/create' , [ActivityController::class , 'create'])->name('activities.create');
+Route::post('/activity/create' , [ActivityController::class , 'store'])->name('activities.store');
+
+Route::get('/activities/{id}', [ActivityController::class, 'show'])->name('activities.show');
 
 
 
-Route::post('/centerCreate' , [CenterController::class , 'store'])->name('center.create');
-Route::get('/centers' , [TypeController::class , 'index']);
-Route::post('/center/create' , [CenterController::class , 'create']);
-Route::post('/center/update' , [CenterController::class , 'update']);
-Route::post('/center/delete' , [CenterController::class , 'delete']);
+Route::post('/centerCreate' , [CentreController::class , 'store'])->name('centers.store');
+Route::get('/centers' , [CentreController::class , 'index']);
+Route::post('/center/create' , [CentreController::class , 'create']);
+Route::post('/center/update' , [CentreController::class , 'update']);
+Route::post('/center/delete' , [CentreController::class , 'delete']);
 
 Route::get('/types' , [TypeController::class , 'index']);
 Route::post('/type/create' , [TypeController::class , 'create']);
@@ -61,7 +68,7 @@ Route::post('/type/delete' , [TypeController::class , 'delete']);
 
 
 
-Route::get('/categories' , [TypeController::class , 'index'])->name('categories.index');
+// Route::get('/categories' , [CategorieController::class , 'index'])->name('categoris');
 Route::post('/categorie/create' , [CategorieController::class , 'create'])->name('categories.create');
 Route::post('/categorie/store' , [CategorieController::class , 'store'])->name('categories.store');
 Route::post('/categorie/edit' , [CategorieController::class , 'edit'])->name('categories.edit');
