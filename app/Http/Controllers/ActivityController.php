@@ -24,11 +24,7 @@ class ActivityController extends Controller
             'min_participants' => 'required|integer|min:1',
             'max_participants' => 'required|integer|min:1',
             'type_id' => 'required',
-            'category' => 'required',
-            'city' => 'required|string|max:255',
-            'street' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
+            
             'image' => 'nullable|url|max:2048',
         ]);
 

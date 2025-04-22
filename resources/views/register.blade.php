@@ -6,7 +6,6 @@
   <title>Registration Form</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -15,19 +14,13 @@
     .fade-in {
       animation: fadeIn 0.5s ease-in;
     }
-    
-    /* Transitions */
     .transition-all {
       transition: all 0.3s ease;
     }
-    
-    /* Improve focus styles for accessibility */
     :focus {
       outline: 2px solid #1e40af;
       outline-offset: 2px;
     }
-    
-    /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -45,7 +38,6 @@
       background: #64748b;
     }
     
-    /* Compact form */
     .compact-form .mt-1 {
       margin-top: 0.25rem;
     }
@@ -67,7 +59,6 @@
 </head>
 <body>
   <div class="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
-    <!-- Header with Logo -->
     <div class="fixed top-0 w-full bg-white shadow-md py-2 z-10">
       <div class="container mx-auto px-4">
         <nav class="flex items-center justify-between">
@@ -91,7 +82,6 @@
       </div>
     </div>
 
-    <!-- Register Form Card -->
     <div class="max-w-md w-full bg-white rounded-xl shadow-xl overflow-hidden mt-12 mb-4">
       <div class="bg-gradient-to-r from-pink-600 to-pink-500 py-3">
         <div class="text-center">
@@ -103,7 +93,6 @@
       <div class="py-4 px-6 space-y-2 compact-form">
         <form method="POST" action="{{ route('register') }}" class="space-y-3">
           @csrf
-          <!-- Full Name -->
           <div>
             <label for="name" class="block text-xs font-medium text-gray-700">Full Name</label>
             <div class="mt-1">
@@ -122,7 +111,6 @@
             </div>
           </div>
 
-          <!-- Email -->
           <div>
             <label for="email" class="block text-xs font-medium text-gray-700">Email</label>
             <div class="mt-1">
@@ -141,7 +129,6 @@
             </div>
           </div>
 
-          <!-- Date of Birth -->
           <div>
             <label for="date_of_birth" class="block text-xs font-medium text-gray-700">Date of Birth</label>
             <div class="mt-1">
@@ -159,7 +146,6 @@
             </div>
           </div>
 
-          <!-- Address fields -->
           <div>
             <label for="boulevard" class="block text-xs font-medium text-gray-700">Boulevard/Street</label>
             <div class="mt-1">
@@ -178,7 +164,6 @@
             </div>
           </div>
 
-          <!-- City and Country -->
           <div class="grid grid-cols-2 gap-2">
             <div>
               <label for="city" class="block text-xs font-medium text-gray-700">City</label>
@@ -222,7 +207,6 @@
           </div>
 
 
-          <!-- Password fields -->
           <div class="grid grid-cols-2 gap-2">
             <div>
               <label for="password" class="block text-xs font-medium text-gray-700">Password</label>
@@ -256,7 +240,6 @@
           </div>
           <p class="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
 
-          <!-- Submit button -->
           <div class="mt-4">
             <button 
               type="submit" 

@@ -7,13 +7,11 @@
     <title>Matching - Find Activities</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Custom background pattern */
         .bg-pattern {
             background-color: #f0f4f8;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232b4f81' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -28,18 +26,13 @@
             animation: fadeIn 0.5s ease-in;
         }
 
-        /* Transitions */
         .transition-all {
             transition: all 0.3s ease;
         }
-
-        /* Improve focus styles for accessibility */
         :focus {
             outline: 2px solid #db2777;
             outline-offset: 2px;
         }
-
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -72,12 +65,12 @@
                         <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
                         <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                     </div>
-                    @if ( !Auth::user()->name )
+                    @if ( !Auth::user() )
                     <div class="flex space-x-3">
                         <a href="/register" class="text-pink-600 hover:text-pink-700 font-medium">Register</a>
                         <a href="/login" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-1.5 rounded-full text-sm shadow-md">Sign In</a>
                     </div>
-                    @elseif ( Auth::user()->name )
+                    @elseif ( Auth::user() )
                     <div class="flex space-x-3">
                         <a href="/logout" class="text-pink-600 hover:text-pink-700 font-medium">Logout</a>
                     </div>
@@ -86,8 +79,6 @@
                 </nav>
             </div>
         </header>
-
-        <!-- Hero Section -->
         <div class="bg-gradient-to-r from-blue-900 to-pink-600 text-white py-10 mb-8">
             <div class="container mx-auto px-4 text-center">
                 <h1 class="text-2xl md:text-3xl font-bold mb-3">Find Your Perfect Activity Match </h1>
@@ -105,9 +96,7 @@
             </div>
         </div>
 
-        <!-- Main Content -->
         <main class="container mx-auto px-4 py-6">
-            <!-- Categories -->
             <div class="mb-8 flex flex-wrap gap-2 justify-center">
                 <button data-category="all" class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all shadow-sm bg-pink-600 text-white">
                     All
@@ -119,7 +108,6 @@
                 @endforeach
             </div>
 
-            <!-- Activity Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="activities-container">
                 @php
                 $activities = [
@@ -223,7 +211,6 @@
                             {{ date('D, M j, g:i A', strtotime($activity['date'])) }}
                         </div>
 
-                        <!-- Progress bar for participants -->
                         <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5">
                             <div class="h-2.5 rounded-full {{ $activity['participants'] >= $activity['max_participants'] ? 'bg-pink-500' : 'bg-pink-600' }}"
                                 style="width: {{ ($activity['participants'] / $activity['max_participants']) * 100 }}%">
@@ -245,7 +232,6 @@
                 @endforeach
             </div>
 
-            <!-- Empty State (Hidden by default) -->
             <div id="empty-state" class="hidden col-span-3 text-center py-12 bg-white rounded-xl shadow-lg my-8">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -259,7 +245,6 @@
                 </button>
             </div>
 
-            <!-- Create Activity CTA -->
             <div class="my-12 bg-gradient-to-r from-blue-900 to-pink-600 rounded-xl shadow-lg overflow-hidden">
                 <div class="md:flex items-center">
                     <div class="p-8 md:w-2/3">
@@ -277,8 +262,6 @@
                 </div>
             </div>
         </main>
-
-        <!-- Footer -->
         <footer class="bg-blue-900 text-white py-10">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row justify-between items-center">
@@ -330,14 +313,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Category filtering
             const categoryButtons = document.querySelectorAll('.category-btn');
             const activityCards = document.querySelectorAll('.activity-card');
             const emptyState = document.getElementById('empty-state');
             const activitiesContainer = document.getElementById('activities-container');
             const viewAllBtn = document.getElementById('view-all-btn');
 
-            // Function to filter activities
             function filterActivities(category) {
                 let visibleCount = 0;
 
@@ -352,7 +333,6 @@
                     }
                 });
 
-                // Show empty state if no activities match the filter
                 if (visibleCount === 0) {
                     emptyState.classList.remove('hidden');
                     activitiesContainer.classList.add('hidden');
@@ -361,7 +341,6 @@
                     activitiesContainer.classList.remove('hidden');
                 }
 
-                // Update active button styles
                 categoryButtons.forEach(btn => {
                     if (btn.getAttribute('data-category') === category) {
                         btn.classList.remove('bg-white', 'text-blue-800');
@@ -373,7 +352,6 @@
                 });
             }
 
-            // Add click event to category buttons
             categoryButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const category = this.getAttribute('data-category');
@@ -381,12 +359,9 @@
                 });
             });
 
-            // View All button in empty state
             viewAllBtn.addEventListener('click', function() {
                 filterActivities('all');
             });
-
-            // Join button functionality
             const joinButtons = document.querySelectorAll('button[type="submit"]');
             joinButtons.forEach(button => {
                 if (!button.disabled) {

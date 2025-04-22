@@ -16,18 +16,15 @@
       animation: fadeIn 0.5s ease-in;
     }
     
-    /* Transitions */
     .transition-all {
       transition: all 0.3s ease;
     }
     
-    /* Improve focus styles for accessibility */
     :focus {
       outline: 2px solid #1e40af;
       outline-offset: 2px;
     }
     
-    /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -124,7 +121,6 @@
             </div>
           </div>
 
-          <!-- Remember me -->
           <div class="flex items-center">
             <input 
               id="remember_me" 
@@ -137,7 +133,6 @@
             </label>
           </div>
 
-          <!-- Submit button -->
           <div>
             <button 
               type="submit" 

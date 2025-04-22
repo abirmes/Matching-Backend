@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Categorie extends Model
 {
     use HasFactory;
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }
