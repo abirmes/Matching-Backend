@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserAuthController extends Controller
@@ -57,26 +58,49 @@ class UserAuthController extends Controller
         $user->adresse()->associate($adresse);
         $user->role()->associate($role);
         $user->save();
-        return redirect()->route('home');
-    }
-
-    public function login(Request $request)
-    {
-        $loginUserData = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|min:8'
-        ]);
-        $user = User::where('email', $loginUserData['email'])->first();
-        if (!$user || !Hash::check($loginUserData['password'], $user->password)) {
-            return redirect()->route('login')->with('password incorrect');
-        }
-        $token = $user->createToken($user->name . '-AuthToken')->plainTextToken;
-        return redirect()->route('home');
-    }
-    public function logout()
-    {
-        auth()->user()->tokens()->delete();
-
         return redirect()->route('login');
     }
+
+    // public function login(Request $request)
+    // {
+        // $loginUserData = $request->validate([
+        //     'email' => 'required|string|email',
+        //     'password' => 'required|min:8'
+        // ]);
+        // $user = User::where('email', $loginUserData['email'])->first();
+        // if (!$user || !Hash::check($loginUserData['password'], $user->password)) {
+        //     return redirect()->route('login')->with('password incorrect');
+        // }
+        
+        // $token = $user->createToken($user->name . '-AuthToken')->plainTextToken;
+        
+        // return redirect()->route('home');
+    // }
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('login');
+    }
+    // public function logout()
+    // {
+    //     try{
+    //         auth()->user()->tokens()->delete();
+    //     return redirect()->route('login');
+    //     }catch(Exception $e){
+    //         return redirect()->route('login');
+    //     }
+    // }
 }

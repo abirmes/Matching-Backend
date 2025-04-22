@@ -20,8 +20,10 @@ return new class extends Migration
             $table->integer('min-participants');
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('types');
-            $table->unsignedBigInteger('adresse_id');
-            $table->foreign('adresse_id')->references('id')->on('adresses');
+            $table->unsignedBigInteger('centre_id');
+            $table->foreign('centre_id')->references('id')->on('centres');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
             $table->engine = 'InnoDB';
 

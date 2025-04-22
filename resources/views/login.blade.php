@@ -81,7 +81,7 @@
       </div>
 
       <div class="py-8 px-6 space-y-4">
-        <form method="POST" action="/login" class="space-y-6">
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
           @csrf
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
