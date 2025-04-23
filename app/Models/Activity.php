@@ -15,6 +15,7 @@ class Activity extends Model
         'date-fin',
         'max-participans',
         'min-participants',
+        'participants',
 
     ];
 

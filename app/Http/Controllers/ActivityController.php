@@ -84,6 +84,7 @@ class ActivityController extends Controller
             $activity->image = $fields['image'];
             $activity->date_debut = $fields['date_debut'];
             $activity->date_fin = $fields['date_fin'];
+            $activity->participants = 0;
             $activity->max_participants = $fields['max_participants'];
             $activity->min_participants = $fields['min_participants'];
             $type = Type::find($fields['type_id']);
