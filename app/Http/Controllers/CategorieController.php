@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TypeController extends Controller
+class CategorieController extends Controller
 {
+    
     public function index()
     {
-        $types = Type::all();
-        return view('types.index', compact('types'));
+        $categories = Categorie::all();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -21,13 +22,13 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('type.create');
+        return view('categories.create');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:type',
+            'name' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
         ]);
 
@@ -37,25 +38,25 @@ class TypeController extends Controller
                 ->withInput();
         }
 
-        $type = Type::create([
+        $category = Categorie::create([
             'name' => $request->name,
             'description' => $request->description,
         ]);
 
-        return redirect()->route('types.index')
-            ->with('success', 'type created with success!');
+        return redirect()->route('categories.index')
+            ->with('success', 'Catégory created with success!');
     }
 
     
-    public function edit(Type $type)
+    public function edit(Categorie $category)
     {
         return view('categories.edit', compact('categorie'));
     }
 
-    public function update(Request $request, Type $type)
+    public function update(Request $request, Categorie $category)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:categories,name,' . $type->id,
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
             'description' => 'nullable|string',
         ]);
 
@@ -65,7 +66,7 @@ class TypeController extends Controller
                 ->withInput();
         }
 
-        $type->update([
+        $category->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
@@ -75,17 +76,19 @@ class TypeController extends Controller
     }
 
     
-    public function destroy(Type $category)
+    public function destroy(Categorie $category)
     {
         // Check if category has contents
         if ($category->activities()->count() > 0) {
-            return redirect()->route('types.index')
-                ->with('error', 'deleting is impossible, type has its own activities.');
+            return redirect()->route('categories.index')
+                ->with('error', 'deleting is impossible, category has its own activities.');
         }
 
         $category->delete();
 
-        return redirect()->route('types.index')
-            ->with('success', 'Type deleted succefully!');
+        return redirect()->route('categories.index')
+            ->with('success', 'Catégorie supprimée avec succès!');
     }
+
+    
 }

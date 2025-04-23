@@ -14,8 +14,8 @@ class Adresse extends Model
         return $this->hasMany(User::class);
     }
 
-    public function center()
+    public function centre()
     {
-        return $this->hasOne(Center::class);
+        return $this->hasOne(Centre::class);
     }
 }

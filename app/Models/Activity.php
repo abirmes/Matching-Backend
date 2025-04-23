@@ -9,14 +9,24 @@ class Activity extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'date-debut',
+        'date-fin',
+        'max-participans',
+        'min-participants',
+        'participants',
+
+    ];
+
     public function users()
     {
       return $this->belongsToMany(User::class);
     }
 
-    public function center()
+    public function centre()
     {
-        return $this->belongsTo(Center::class);
+        return $this->belongsTo(Centre::class);
     }
     public function type()
     {
@@ -26,4 +36,9 @@ class Activity extends Model
     {
         return $this->hasMany(Part::class);
     }
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class);
+    }
+
 }

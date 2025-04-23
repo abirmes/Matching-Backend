@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->dateTime('date-debut');
-            $table->dateTime('date-fin');
-            $table->integer('max-participants');
-            $table->integer('min-participants');
+            $table->dateTime('date_debut');
+            $table->dateTime('date_fin');
+            $table->integer('max_participants');
+            $table->integer('min_participants');
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('types');
-            $table->unsignedBigInteger('adresse_id');
-            $table->foreign('adresse_id')->references('id')->on('adresses');
+            $table->unsignedBigInteger('centre_id');
+            $table->foreign('centre_id')->references('id')->on('centres');
+            $table->unsignedBigInteger('categorie_id');
+            $table->foreign('categorie_id')->references('id')->on('categories');
             $table->timestamps();
             $table->engine = 'InnoDB';
 

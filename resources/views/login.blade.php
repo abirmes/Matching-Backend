@@ -16,18 +16,15 @@
       animation: fadeIn 0.5s ease-in;
     }
     
-    /* Transitions */
     .transition-all {
       transition: all 0.3s ease;
     }
     
-    /* Improve focus styles for accessibility */
     :focus {
       outline: 2px solid #1e40af;
       outline-offset: 2px;
     }
     
-    /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -81,7 +78,7 @@
       </div>
 
       <div class="py-8 px-6 space-y-4">
-        <form method="POST" action="/login" class="space-y-6">
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
           @csrf
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -124,7 +121,6 @@
             </div>
           </div>
 
-          <!-- Remember me -->
           <div class="flex items-center">
             <input 
               id="remember_me" 
@@ -137,7 +133,6 @@
             </label>
           </div>
 
-          <!-- Submit button -->
           <div>
             <button 
               type="submit" 
