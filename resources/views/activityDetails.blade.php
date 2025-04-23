@@ -131,7 +131,8 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
-                                        {{ $activity->place }}
+                                        {{ $activity->centre->adresse->country }}, {{ $activity->centre->adresse->city }}, {{ $activity->centre->adresse->boulevard }}
+
                                     </div>
                                     <div class="flex items-center mr-4 mb-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,7 +150,7 @@
                             </header>
 
                             <div class="text-gray-600 text-sm mb-4">
-                                <p>{{ $activity->description }}</p>
+                                <p>{{ $activity->categorie->name }}</p>
                                 
                                 <div class="mt-3 grid grid-cols-2 gap-2">
                                     <div>
@@ -167,14 +168,7 @@
                                 </div>
                             </div>
 
-                            <!-- Tags -->
-                            <div class="flex flex-wrap gap-1 mb-4">
-                                @foreach($activity->tags as $tag)
-                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">
-                                    {{ $tag }}
-                                </span>
-                                @endforeach
-                            </div>
+                            
                         </div>
 
                         <!-- Action Card -->
@@ -258,27 +252,7 @@
 
                     <!-- Host Information and Location in a grid -->
                     <div class="grid md:grid-cols-2 gap-4 border-t border-gray-200 pt-4 mt-4">
-                        <!-- Host Information -->
-                        <section>
-                            <h3 class="text-base font-semibold text-gray-800 mb-3">À propos de l'organisateur</h3>
-                            <div class="flex items-start">
-                                <img src="{{ $activity->host->avatar }}" alt="Organisateur" class="h-10 w-10 rounded-full mr-3">
-                                <div>
-                                    <h4 class="font-medium text-gray-800 text-sm">{{ $activity->host->name }}</h4>
-                                    <p class="text-gray-600 text-xs">{{ $activity->host->bio }}</p>
-                                    <div class="flex items-center mt-1">
-                                        <div class="flex">
-                                            @for($i = 1; $i <= 5; $i++)
-                                            <svg class="h-3 w-3 {{ $i <= $activity->host->rating ? 'text-yellow-400' : 'text-gray-300' }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                            </svg>
-                                            @endfor
-                                        </div>
-                                        <span class="text-gray-600 text-xs ml-1">({{ $activity->host->reviewCount }} avis)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                     
 
                         <!-- Location Map -->
                         <section>
@@ -290,11 +264,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <p class="text-gray-500 text-xs">Carte de {{ $activity->place }}</p>
+                                    <p class="text-gray-500 text-xs">Carte de {{ $activity->centre }}</p>
                                 </div>
                             </figure>
                             <address class="text-gray-600 text-xs not-italic">
-                                <span class="font-medium">Adresse:</span> {{ $activity->address }}
+                                <span class="font-medium">Adresse:</span>   {{ $activity->centre->adresse->country }}, {{ $activity->centre->adresse->city }}, {{ $activity->centre->adresse->boulevard }}
+
                             </address>
                         </section>
                     </div>

@@ -21,7 +21,7 @@ class ActivityController extends Controller
     }
     public function index() {
         $activities = Activity::all();
-        return view('/' , ['activities' => $activities]);
+        return view('home' , ['activities' => $activities]);
     }
 
     public function create()
@@ -36,7 +36,7 @@ class ActivityController extends Controller
             'specialities' => $this->getSpecialities()
         ];
 
-        return view('activityCreate', ['data' => $data]);
+        return view('activityCreate' , ['data' => $data]);
     }
 
     public function store(Request $request)
@@ -54,7 +54,7 @@ class ActivityController extends Controller
                 'city' => 'required|string|max:255',
                 'boulevard' => 'required|string|max:255',
                 'centre_id' => 'required',
-                'image' => 'nullable|url|max:2048', 
+                'image' => 'nullable', 
             ]);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -80,6 +80,7 @@ class ActivityController extends Controller
         try {
             $activity = new Activity();
             $activity->name = $fields['name'];
+            $activity->image = $fields['image'];
             $activity->date_debut = $fields['date_debut'];
             $activity->date_fin = $fields['date_fin'];
             $activity->max_participants = $fields['max_participants'];

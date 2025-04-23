@@ -114,79 +114,15 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="activities-container">
-                @php
-                $activities = [
-                [
-                'id' => 1,
-                'name' => 'Beach Volleyball Tournament',
-                'place' => 'Sunset Beach Park',
-                'participants' => 12,
-                'max_participants' => 16,
-                'category' => 'sports',
-                'date' => '2025-04-20 14:00:00',
-                'image' => 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
-                ],
-                [
-                'id' => 2,
-                'name' => 'Painting Workshop',
-                'place' => 'Creative Arts Center',
-                'participants' => 8,
-                'max_participants' => 12,
-                'category' => 'arts',
-                'date' => '2025-04-18 10:00:00',
-                'image' => 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
-                ],
-                [
-                'id' => 3,
-                'name' => 'Guitar Jam Session',
-                'place' => 'Music Studio',
-                'participants' => 5,
-                'max_participants' => 10,
-                'category' => 'music',
-                'date' => '2025-04-22 08:00:00',
-                'image' => 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
-                ],
-                [
-                'id' => 4,
-                'name' => 'Coding Bootcamp',
-                'place' => 'Tech Hub',
-                'participants' => 7,
-                'max_participants' => 15,
-                'category' => 'technology',
-                'date' => '2025-04-19 18:30:00',
-                'image' => 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
-                ],
-                [
-                'id' => 5,
-                'name' => 'Portrait Drawing Class',
-                'place' => 'Art Studio',
-                'participants' => 15,
-                'max_participants' => 15,
-                'category' => 'drawing',
-                'date' => '2025-04-21 07:00:00',
-                'image' => 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
-                ],
-                [
-                'id' => 6,
-                'name' => 'Jazz Concert',
-                'place' => 'Downtown Music Hall',
-                'participants' => 10,
-                'max_participants' => 16,
-                'category' => 'music',
-                'date' => '2025-04-17 19:00:00',
-                'image' => 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
-                ]
-                ];
-                @endphp
-
                 @foreach($activities as $activity)
-                <div data-category="{{ $activity['category'] }}" class="activity-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300">
+                <div data-category="{{ $activity->categorie->name }}" class="activity-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300">
                     <div class="relative">
-                        <img src="{{ $activity['image'] }}" alt="{{ $activity['name'] }}" class="w-full h-48 object-cover">
+                        
+                        <img src="{{ $activity->image }}" alt="{{ $activity->name }}" class="w-full h-48 object-cover">
                         <div class="absolute top-0 right-0 bg-blue-800 text-white px-3 py-1 m-3 rounded-full text-xs font-medium shadow-md">
-                            {{ ucfirst($activity['category']) }}
+                            {{ $activity->categorie->name }}
                         </div>
-                        @if($activity['participants'] >= $activity['max_participants'])
+                        @if($activity->min_participants >= $activity->max_participants)
                         <div class="absolute top-0 left-0 bg-pink-500 text-white px-3 py-1 m-3 rounded-full text-xs font-medium shadow-md">
                             Full
                         </div>
@@ -194,49 +130,52 @@
                     </div>
                     <div class="p-5">
                         <h3 class="text-lg font-bold text-gray-800 mb-2">
-                            {{ $activity['name'] }}
+                            {{ $activity->name }}
                         </h3>
                         <div class="mt-3 text-gray-600 text-sm flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            {{ $activity['place'] }}
+                            {{ $activity->centre->adresse->country }}, {{ $activity->centre->adresse->city }}, {{ $activity->centre->adresse->boulevard }}
                         </div>
                         <div class="mt-3 text-gray-600 text-sm flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
-                            {{ $activity['participants'] }} / {{ $activity['max_participants'] }} participants
+                            {{ $activity->participants }} / {{ $activity->max_participants }} participants
                         </div>
                         <div class="mt-3 text-gray-600 text-sm flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            {{ date('D, M j, g:i A', strtotime($activity['date'])) }}
+                            {{ date('D, M j, g:i A', strtotime($activity->date_debut)) }}
                         </div>
 
                         <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="h-2.5 rounded-full {{ $activity['participants'] >= $activity['max_participants'] ? 'bg-pink-500' : 'bg-pink-600' }}"
-                                style="width: {{ ($activity['participants'] / $activity['max_participants']) * 100 }}%">
+                            <div class="h-2.5 rounded-full {{ $activity->participants >= $activity->max_participants ? 'bg-pink-500' : 'bg-pink-600' }}"
+                                style="width: {{ ($activity->participants / $activity->max_participants) * 100 }}%">
                             </div>
                         </div>
 
                         <div class="mt-5">
-                            <form action="#" method="POST">
+                            @if($activity->participants < $activity->max_participants)
+                            <form action="/activity/join/{{ $activity->id }}" method="POST">
                                 @csrf
-                                <button type="submit"
-                                    class="w-full py-2 rounded-lg text-sm font-medium transition-all {{ $activity['participants'] >= $activity['max_participants'] ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700 text-white shadow-md hover:shadow-lg' }}"
-                                    {{ $activity['participants'] >= $activity['max_participants'] ? 'disabled' : '' }}>
-                                    {{ $activity['participants'] >= $activity['max_participants'] ? 'Full' : 'Join Now' }}
+                                <button type="submit" class="w-full py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg text-sm font-medium transition-all">
+                                    Join Activity
                                 </button>
                             </form>
-                            <a href="/activity/{{ $activity['id'] }}"
+                            @else
+                            <button disabled class="w-full py-2 px-4 bg-gray-400 text-white rounded-lg text-sm font-medium cursor-not-allowed">
+                                Activity Full
+                            </button>
+                            @endif
+                            <a href="/activity/{{ $activity->id }}"
                                 class="mt-3 inline-block w-full text-center py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all">
                                 Show Detail
                             </a>
                         </div>
-
                     </div>
                 </div>
                 @endforeach
@@ -267,7 +206,7 @@
                         </a>
                     </div>
                     <div class="hidden md:block md:w-1/3 p-8">
-                        <img src="https://via.placeholder.com/400x300?text=Create+Activity" alt="Create activity" class="rounded-lg shadow-lg">
+                        <img src="/api/placeholder/400/300" alt="Create activity" class="rounded-lg shadow-lg">
                     </div>
                 </div>
             </div>
@@ -372,12 +311,17 @@
             viewAllBtn.addEventListener('click', function() {
                 filterActivities('all');
             });
+            
             const joinButtons = document.querySelectorAll('button[type="submit"]');
             joinButtons.forEach(button => {
                 if (!button.disabled) {
                     button.addEventListener('click', function(e) {
                         e.preventDefault();
-                        alert('You have joined this activity!');
+                        const form = this.closest('form');
+                        if (form) {
+                            form.submit();
+                            alert('You have joined this activity!');
+                        }
                     });
                 }
             });

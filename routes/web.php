@@ -26,9 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+
 
 Route::get('/categories', function () {
     return view('/admin/categories');
@@ -45,7 +43,7 @@ Route::post('/register' , [UserAuthController::class , 'register'])->name('regis
 Route::get('/login', [UserAuthController::class, 'loginPage']);
 Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
-Route::get('/home' , [ActivityController::class , 'index'])->name('activities.index');
+Route::get('/' , [ActivityController::class , 'index'])->name('activities.index');
 Route::get('/activityCreate' , [ActivityController::class , 'create'])->name('activities.create');
 Route::post('/activity/create' , [ActivityController::class , 'store'])->name('activities.store');
 
