@@ -93,7 +93,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date & Time</label>
-              <input id="start_date" name="start_date" type="datetime-local" value="{{ old('start_date') }}" required
+              <input id="start_date" name="date_debut" type="datetime-local" value="{{ old('start_date') }}" required
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('start_date') border-red-500 @enderror">
               @error('start_date')
               <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -101,7 +101,7 @@
             </div>
             <div>
               <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date & Time</label>
-              <input id="end_date" name="end_date" type="datetime-local" value="{{ old('end_date') }}" required
+              <input id="end_date" name="date_fin" type="datetime-local" value="{{ old('end_date') }}" required
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('end_date') border-red-500 @enderror">
               @error('end_date')
               <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -146,7 +146,7 @@
             </div>
             <div>
               <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-              <select id="category_id" name="category_id" required
+              <select id="category_id" name="categorie_id" required
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('category_id') border-red-500 @enderror">
                 <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Select category</option>
                 @foreach($data['categories'] as $category)
@@ -170,7 +170,7 @@
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('country') border-red-500 @enderror">
                   <option value="" disabled {{ old('country') ? '' : 'selected' }}>Select country</option>
                   @foreach($data['countries'] as $code => $name)
-                  <option value="{{ $code }}" {{ old('country') == $code ? 'selected' : '' }}>{{ $name }}</option>
+                  <option value="{{ $name }}" {{ old('country') == $code ? 'selected' : '' }}>{{ $name }}</option>
                   @endforeach
                 </select>
                 @error('country')
@@ -183,7 +183,7 @@
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('city') border-red-500 @enderror">
                   <option value="" disabled {{ old('city') ? '' : 'selected' }}>Select city</option>
                   @foreach($data['cities'] as $code => $name)
-                  <option value="{{ $code }}" {{ old('city') == $code ? 'selected' : '' }}>{{ $name }}</option>
+                  <option value="{{ $name }}" {{ old('city') == $code ? 'selected' : '' }}>{{ $name }}</option>
                   @endforeach
                 </select>
                 @error('city')
@@ -195,11 +195,11 @@
             <div class="grid grid-cols-1 gap-4 mb-4">
               <div>
                 <label for="street" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
-                <select id="street" name="street" required
+                <select id="street" name="boulevard" required
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('street') border-red-500 @enderror">
                   <option value="" disabled {{ old('street') ? '' : 'selected' }}>Select boulevard address</option>
                   @foreach($data['boulevards'] as $code => $name)
-                  <option value="{{ $code }}" {{ old('street') == $code ? 'selected' : '' }}>{{ $name }}</option>
+                  <option value="{{ $name }}" {{ old('street') == $code ? 'selected' : '' }}>{{ $name }}</option>
                   @endforeach
                 </select>
                 @error('street')
@@ -211,7 +211,7 @@
             <div class="grid grid-cols-1 mb-2">
               <div>
                 <label for="center_id" class="block text-sm font-medium text-gray-700 mb-1">Center Name</label>
-                <select id="center_id" name="center_id" required
+                <select id="center_id" name="centre_id" required
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('center_id') border-red-500 @enderror">
                   <option value="" disabled {{ old('center_id') ? '' : 'selected' }}>Select center</option>
                   @foreach($data['centers'] as $center)
@@ -239,7 +239,7 @@
           <div class="border-t border-gray-200 pt-4">
             <label for="image_url" class="block text-sm font-medium text-gray-700 mb-2">Activity Image URL</label>
             <div class="flex space-x-2">
-              <input id="image_url" name="image_url" type="url" value="{{ old('image_url') }}" placeholder="Enter image URL (e.g. https://example.com/image.jpg)"
+              <input id="image_url" name="image" type="url" value="{{ old('image_url') }}" placeholder="Enter image URL (e.g. https://example.com/image.jpg)"
                 class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('image_url') border-red-500 @enderror">
               <button type="button" id="previewImageBtn"
                 class="px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md font-medium flex-shrink-0">

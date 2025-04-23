@@ -35,7 +35,6 @@ Route::get('/categories', function () {
 })->name('categories');
 
 
-Route::get('/activityCreate', [ActivityController::class, 'create'])->name('activities.create');
 
 
 Route::get('/register', [UserAuthController::class, 'registerPage']);
@@ -46,7 +45,8 @@ Route::post('/register' , [UserAuthController::class , 'register'])->name('regis
 Route::get('/login', [UserAuthController::class, 'loginPage']);
 Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
-Route::get('/activity/create' , [ActivityController::class , 'create'])->name('activities.create');
+Route::get('/home' , [ActivityController::class , 'index'])->name('activities.index');
+Route::get('/activityCreate' , [ActivityController::class , 'create'])->name('activities.create');
 Route::post('/activity/create' , [ActivityController::class , 'store'])->name('activities.store');
 
 Route::get('/activities/{id}', [ActivityController::class, 'show'])->name('activities.show');

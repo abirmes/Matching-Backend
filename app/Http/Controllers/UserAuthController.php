@@ -28,7 +28,8 @@ class UserAuthController extends Controller
     {
         try{
             $registerUserData = $request->validate([
-                'name' => 'required|string',
+                'firstname' => 'required|string',
+                'lastname' => 'required|string',
                 'email' => 'required|string|email|unique:users',
                 'date_naissance' => 'required|date_format:Y-m-d',
                 'password' => 'required|min:8',
@@ -51,7 +52,8 @@ class UserAuthController extends Controller
 
         
         $user = new User();
-        $user->name = $registerUserData['name'] ;
+        $user->firstname = $registerUserData['firstname'] ;
+        $user->lastname = $registerUserData['lastname'] ;
         $user->email = $registerUserData['email'] ;
         $user->date_naissance = $registerUserData['date_naissance'] ;
         $user->password = $registerUserData['password'] ;

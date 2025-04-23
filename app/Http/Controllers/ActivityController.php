@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Adresse;
+use App\Models\Categorie;
+use App\Models\Centre;
+use App\Models\Type;
 use App\Repositories\Interfaces\ActivityRepositoryInterface;
+use Exception;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -14,13 +19,16 @@ class ActivityController extends Controller
     {
         $this->activityRepository = $activityRepository;
     }
-    public function index() {}
+    public function index() {
+        $activities = Activity::all();
+        return view('/' , ['activities' => $activities]);
+    }
 
     public function create()
     {
         $data = [
             'countries'   => $this->getCountries(),
-            'cities'      => $this->getCities(), 
+            'cities'      => $this->getCities(),
             'centers'     => $this->getCenters(),
             'types'       => $this->getTypes(),
             'categories'  => $this->getCategories(),
@@ -33,15 +41,60 @@ class ActivityController extends Controller
 
     public function store(Request $request)
     {
-        $fields = $request->validate([
-            'name' => 'required|string|max:255',
-            'date_debut' => 'required|date|before:date_fin',
-            'date_fin' => 'required|date|after:date_debut',
-            'min_participants' => 'required|integer|min:1',
-            'max_participants' => 'required|integer|min:1',
-            'type_id' => 'required',
-            'image' => 'nullable|url|max:2048',
-        ]);
+        try {
+            $fields = $request->validate([
+                'name' => 'required|string|max:255',
+                'date_debut' => 'required|date|before:date_fin',
+                'date_fin' => 'required|date|after:date_debut',
+                'min_participants' => 'required|integer|min:1',
+                'max_participants' => 'required|integer|min:1',
+                'type_id' => 'required',
+                'categorie_id' => 'required',
+                'country' => 'required|string|max:255',
+                'city' => 'required|string|max:255',
+                'boulevard' => 'required|string|max:255',
+                'centre_id' => 'required',
+                'image' => 'nullable|url|max:2048', 
+            ]);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+
+
+        try {
+            $adresse = Adresse::where('country', $fields['country'])
+                ->where('city', $fields['city'])
+                ->where('boulevard', $fields['boulevard'])
+                ->first();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        try {
+            $centre = Centre::where('id', $fields['centre_id'])
+                ->where('adresse_id', $adresse->id)
+                ->first();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        try {
+            $activity = new Activity();
+            $activity->name = $fields['name'];
+            $activity->date_debut = $fields['date_debut'];
+            $activity->date_fin = $fields['date_fin'];
+            $activity->max_participants = $fields['max_participants'];
+            $activity->min_participants = $fields['min_participants'];
+            $type = Type::find($fields['type_id']);
+            $categorie = Categorie::find($fields['categorie_id']);
+            $activity->type()->associate($type->id);
+            $activity->categorie()->associate($categorie->id);
+            $activity->centre()->associate($centre->id);
+            $activity->save();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return redirect()->route('activities.index');
+        
     }
 
 
@@ -83,7 +136,7 @@ class ActivityController extends Controller
     {
         return $this->activityRepository->getAllBoulevards();
     }
-    
+
     public function getSpecialities()
     {
         return $this->activityRepository->getAllspecialities();

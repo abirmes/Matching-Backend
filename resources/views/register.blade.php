@@ -94,11 +94,28 @@
         <form method="POST" action="{{ route('register') }}" class="space-y-3">
           @csrf
           <div>
-            <label for="name" class="block text-xs font-medium text-gray-700">Full Name</label>
+            <label for="firstname" class="block text-xs font-medium text-gray-700">Firstname</label>
             <div class="mt-1">
               <input 
                 id="name" 
-                name="name" 
+                name="firstname" 
+                type="text" 
+                required 
+                class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
+                placeholder="John Doe"
+                value="{{ old('name') }}"
+              />
+              @error('firstname')
+                <p class="text-xs text-red-600">{{ $message }}</p>
+              @enderror
+            </div>
+          </div>
+          <div>
+            <label for="lastname" class="block text-xs font-medium text-gray-700">Lastname</label>
+            <div class="mt-1">
+              <input 
+                id="name" 
+                name="lastname" 
                 type="text" 
                 required 
                 class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
