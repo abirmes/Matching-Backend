@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('centres', function (Blueprint $table) {
             $table->id();
             $table->string('etat');
-            $table->string('specialite');
+            $table->enum('speciality', [
+                'sports', 'music', 'arts', 'technology', 'education',
+                'fitness', 'dance', 'cooking', 'language', 'other'
+            ]);
             $table->unsignedBigInteger('adresse_id');
             $table->foreign('adresse_id')->references('id')->on('adresses');
             $table->timestamps();

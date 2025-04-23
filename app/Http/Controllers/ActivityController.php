@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CentreSpecialite;
 use App\Models\Activity;
 use App\Models\Adresse;
 use App\Models\Categorie;
@@ -140,6 +141,6 @@ class ActivityController extends Controller
 
     public function getSpecialities()
     {
-        return $this->activityRepository->getAllspecialities();
+        return  CentreSpecialite::cases(); 
     }
 }

@@ -335,12 +335,12 @@
             </div>
           </div>
           <div>
-            <label for="centerSpecialty" class="block text-sm font-medium text-gray-700 mb-1">Speciality</label>
-            <select id="centerSpecialty" name="specialite" required
+            <label for="speciality" class="block text-sm font-medium text-gray-700 mb-1">Speciality</label>
+            <select name="speciality" id="speciality"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="" disabled selected>Select speciality</option>
-              @foreach($data['categories'] as $key => $speciality)
-              <option value="{{ $key }}">{{ $speciality }}</option>
+              <option value="" disabled selected>Select a speciality</option>
+              @foreach($data['specialities'] as $speciality)
+              <option value="{{ $speciality->value }}">{{ ucfirst($speciality->name) }}</option>
               @endforeach
             </select>
           </div>
@@ -381,12 +381,12 @@
       document.getElementById('createCenterModal').classList.add('hidden');
     });
 
-    
 
-      
 
-      
-           
+
+
+
+
 
     // Close modal when clicking outside
     window.addEventListener('click', function(event) {

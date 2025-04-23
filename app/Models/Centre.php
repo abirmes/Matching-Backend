@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CentreSpecialite;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ class Centre extends Model
     protected $fillable = [
         'etat',
         'name',
-        'specialite'
+        'specialite' => CentreSpecialite::class,
     ];
 
     public function activities()

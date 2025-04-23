@@ -2,40 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CentreSpecialite;
 use App\Models\Adresse;
 use App\Models\Centre;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CentreController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $centres = Centre::all();
-        return view('centres' , ['centres' => $centres]);
+        return view('centres', ['centres' => $centres]);
     }
 
     public function store(Request $request)
     {
-        
-        $fields = $request->validate([
+        DB::beginTransaction();
+        try {
+            $fields = $request->validate([
 
-            'specialite' => 'required',
-            'name' => 'required',
-            'city' => 'required|string|max:255',
-            'boulevard' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-        ]);
-        $adresse = new Adresse();
-        $adresse->city = $fields['city'];
-        $adresse->country = $fields['country'];
-        $adresse->boulevard = $fields['boulevard'];
-        $adresse->save();
-        $centre = new Centre();
-        $centre->name = $fields['name'];
-        $centre->specialite = $fields['specialite'];
-        $centre->etat = "open";
-        $centre->adresse()->associate($adresse->id);
-        $centre->save();
-        return redirect()->back();
+                'speciality' => 'required',
+                'name' => 'required',
+                'city' => 'required|string|max:255',
+                'boulevard' => 'required|string|max:255',
+                'country' => 'required|string|max:255',
+            ]);
+            $adresse = new Adresse();
+            $adresse->city = $fields['city'];
+            $adresse->country = $fields['country'];
+            $adresse->boulevard = $fields['boulevard'];
+            $adresse->save();
+            $centre = new Centre();
+            $centre->name = $fields['name'];
+            $centre->speciality = CentreSpecialite::from($fields['speciality']);
+            $centre->etat = "open";
+            $centre->adresse()->associate($adresse->id);
+            $centre->save();
+            return redirect()->back();
+        } catch (Exception $e) {
+            DB::rollback();
+        }
     }
 
 
