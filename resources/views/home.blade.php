@@ -171,7 +171,7 @@
                                 Activity Full
                             </button>
                             @endif
-                            <a href="/activity/{{ $activity->id }}"
+                            <a href="{{route('activities.show' , ['id' => $activity->id])}}"
                                 class="mt-3 inline-block w-full text-center py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all">
                                 Show Detail
                             </a>

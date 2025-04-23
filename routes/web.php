@@ -50,7 +50,6 @@ Route::post('/activity/create' , [ActivityController::class , 'store'])->name('a
 Route::get('/activities/{id}', [ActivityController::class, 'show'])->name('activities.show');
 
 
-
 Route::post('/centerCreate' , [CentreController::class , 'store'])->name('centers.store');
 Route::get('/centers' , [CentreController::class , 'index']);
 Route::post('/center/create' , [CentreController::class , 'create']);

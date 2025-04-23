@@ -64,28 +64,24 @@
                         Matching<span class="text-pink-500">.</span>
                     </div>
                     <div class="hidden md:flex space-x-5">
-                        <a href="{{ route('home') }}" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Accueil</a>
-                        <a href="{{ route('activities.index') }}" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Activités</a>
-                        <a href="{{ route('activities.create') }}" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Créer</a>
+                        @if ( Auth::check() && Auth::user()->role->name === "admin")
+                        <a href="/dashboard" class="text-gray-700 hover:text-blue-600 px-1">Dashboard</a>
+                        @endif
+                        <a href="/home" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
+                        <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
+                        <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                     </div>
-
                     @guest
                     <div class="flex space-x-3">
-                        <a href="{{ route('register') }}" class="text-pink-600 hover:text-pink-700 font-medium">S'inscrire</a>
-                        <a href="{{ route('login') }}" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-1.5 rounded-full text-sm shadow-md">Se connecter</a>
+                        <a href="/register" class="text-pink-600 hover:text-pink-700 font-medium">Register</a>
+                        <a href="/login" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-1.5 rounded-full text-sm shadow-md">Sign In</a>
                     </div>
                     @else
                     <div class="flex space-x-3">
-                        <span class="text-gray-700 mr-2">{{ Auth::user()->name }}</span>
-                        <a href="{{ route('logout') }}" class="text-pink-600 hover:text-pink-700 font-medium"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Déconnexion
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            @csrf
-                        </form>
+                        <a href="/logout" class="text-pink-600 hover:text-pink-700 font-medium">Logout</a>
                     </div>
                     @endguest
+
                 </nav>
             </div>
         </header>
@@ -108,7 +104,7 @@
                 <figure class="relative">
                     <img src="{{ $activity->image }}" alt="Image de l'activité {{ $activity->name }}" class="w-full h-48 md:h-64 object-cover">
                     <div class="absolute top-0 right-0 bg-blue-800 text-white px-3 py-1 m-3 rounded-full text-sm font-medium shadow-md">
-                        {{ $activity->category->name }}
+                        {{ $activity->categorie->name }}
                     </div>
                     @if($activity->participants >= $activity->max_participants)
                     <div class="absolute top-0 left-0 bg-pink-500 text-white px-3 py-1 m-3 rounded-full text-sm font-medium shadow-md">
@@ -218,7 +214,7 @@
                             </div>
 
                             <!-- Action Buttons -->
-                            <form action="{{ route('activities.join', $activity->id) }}" method="POST">
+                            <form action="/" method="POST">
                                 @csrf
                                 <button type="submit" class="w-full py-2 rounded-lg text-sm font-medium mb-2 transition-all {{ $activity->participants >= $activity->max_participants ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700 text-white shadow-md hover:shadow-lg' }}" {{ $activity->participants >= $activity->max_participants ? 'disabled' : '' }}>
                                     {{ $activity->participants >= $activity->max_participants ? 'Activité complète' : 'Rejoindre l\'activité' }}
@@ -235,7 +231,7 @@
                                     </div>
                                 </button>
 
-                                <form action="{{ route('activities.save', $activity->id) }}" method="POST">
+                                <form action="/" method="POST">
                                     @csrf
                                     <button type="submit" class="w-full py-2 border border-gray-300 text-gray-700 hover:bg-gray-100 rounded-lg text-sm font-medium transition-all">
                                         <div class="flex items-center justify-center">
@@ -264,11 +260,11 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <p class="text-gray-500 text-xs">Carte de {{ $activity->centre }}</p>
+                                    <p class="text-gray-500 text-xs">Carte de {{ $activity->centre->name }}</p>
                                 </div>
                             </figure>
                             <address class="text-gray-600 text-xs not-italic">
-                                <span class="font-medium">Adresse:</span>   {{ $activity->centre->adresse->country }}, {{ $activity->centre->adresse->city }}, {{ $activity->centre->adresse->boulevard }}
+                            <span class="font-medium">Adresse:</span>   {{ $activity->centre->adresse->country }}, {{ $activity->centre->adresse->city }}, {{ $activity->centre->adresse->boulevard }}
 
                             </address>
                         </section>
@@ -291,7 +287,7 @@
                         <div>
                             <h3 class="text-lg font-semibold mb-3">Liens rapides</h3>
                             <ul class="space-y-2">
-                                <li><a href="{{ route('home') }}" class="text-blue-200 hover:text-pink-200 transition-colors">Accueil</a></li>
+                                <li><a href="/" class="text-blue-200 hover:text-pink-200 transition-colors">Accueil</a></li>
                                 <li><a href="{{ route('activities.index') }}" class="text-blue-200 hover:text-pink-200 transition-colors">Activités</a></li>
                                 <li><a href="{{ route('activities.create') }}" class="text-blue-200 hover:text-pink-200 transition-colors">Créer une activité</a></li>
                             </ul>
