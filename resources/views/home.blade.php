@@ -66,7 +66,7 @@
                         @if ( Auth::check() && Auth::user()->role->name === "admin")
                         <a href="/dashboard" class="text-gray-700 hover:text-blue-600 px-1">Dashboard</a>
                         @endif
-                        <a href="/home" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
+                        <a href="/" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
                         <a href="activities" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
                         <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                     </div>
