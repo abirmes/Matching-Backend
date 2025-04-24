@@ -137,7 +137,7 @@
           </div>
           @endif
 
-          <form id="joinActivityForm" method="POST" action="">
+          <form id="joinActivityForm" method="POST" action="/activity/join/{{ $activity->id }}">
             @csrf
             <div class="space-y-4">
               <div>
@@ -145,9 +145,6 @@
                 <select id="team" name="team" required
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none @error('team') border-red-500 @enderror">
                   <option value="" disabled selected>Choose a team</option>
-                  <option value="team_a">Team A</option>
-                  <option value="team_b">Team B</option>
-                  <option value="team_c">Team C</option>
                   <option value="individual">Individual Participant</option>
                 </select>
                 @error('team')

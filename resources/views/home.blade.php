@@ -67,7 +67,7 @@
                         <a href="/dashboard" class="text-gray-700 hover:text-blue-600 px-1">Dashboard</a>
                         @endif
                         <a href="/home" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
-                        <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
+                        <a href="activities" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
                         <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                     </div>
                     @guest
@@ -312,19 +312,6 @@
                 filterActivities('all');
             });
             
-            const joinButtons = document.querySelectorAll('button[type="submit"]');
-            joinButtons.forEach(button => {
-                if (!button.disabled) {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const form = this.closest('form');
-                        if (form) {
-                            form.submit();
-                            alert('You have joined this activity!');
-                        }
-                    });
-                }
-            });
         });
     </script>
 </body>

@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::get('/categories', function () {
+Route::get('/dashboard', function () {
     return view('/admin/categories');
 })->name('categories');
 
@@ -79,3 +79,8 @@ Route::post('/categorie/delete' , [CategorieController::class , 'delete']);
 
 Route::get('/activity/join/{id}' , [UserController::class , 'show'])->name('activity.join');
 Route::post('/activity/join/{id}' , [UserController::class , 'joinActivity']);
+
+Route::post('/activity/join/{id}' , [UserController::class , 'joinActivity']);
+
+
+Route::get('activities' , [UserController::class , 'showUserActivities'])->name('userActivities');
