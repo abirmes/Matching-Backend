@@ -160,7 +160,7 @@
 
                         <div class="mt-5">
                             @if($activity->participants < $activity->max_participants)
-                            <form action="/activity/join/{{ $activity->id }}" method="POST">
+                            <form action="/activity/join/{{ $activity->id }}" method="get">
                                 @csrf
                                 <button type="submit" class="w-full py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg text-sm font-medium transition-all">
                                     Join Activity

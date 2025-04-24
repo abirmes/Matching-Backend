@@ -40,9 +40,12 @@ class CentreController extends Controller
             $centre->etat = "open";
             $centre->adresse()->associate($adresse->id);
             $centre->save();
+            DB::commit();
             return redirect()->back();
         } catch (Exception $e) {
             DB::rollback();
+            return back()->withErrors(['error' => $e->getMessage()]);
+
         }
     }
 
