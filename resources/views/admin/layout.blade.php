@@ -68,7 +68,7 @@
                     <a href="/dashboard" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Dashboard</a>
                     @endif
                     <a href="/" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
+                    <a href="activities" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
                     <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                 </div>
                 @if ( !Auth::user() )
@@ -105,7 +105,7 @@
                             </svg>
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm font-medium">{{Auth::user()->name}}</p>
+                            <p class="text-sm font-medium">{{Auth::user()->firstname}} {{Auth::user()->lastname}} </p>
                             <p class="text-xs text-blue-300">Admin</p>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                     </a>
                 </div>
 
-                
+
             </div>
         </sidebar>
 
@@ -288,6 +288,17 @@
                                 </div>
                             </div>
                         </div>
+                        @if(session('success'))
+                        <div class="px-6 py-4 mb-4 text-green-800 bg-green-100 rounded-md">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
+                        @if(session('error'))
+                        <div class="px-6 py-4 mb-4 text-red-800 bg-red-100 rounded-md">
+                            {{ session('error') }}
+                        </div>
+                        @endif
                         @yield('categories')
                         @yield('types')
                         @yield('dashboard')

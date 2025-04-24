@@ -162,7 +162,7 @@
                                     <a href="{{route('activities.show' , ['id' => $activity->id])}}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-all">
                                         View Details
                                     </a>
-                                    <form action="" method="post" onsubmit="return confirm('Are you sure you want to leave this activity?');">
+                                    <form action="{{route('activities.delete' , ['id' => $activity->id])}}" method="post" onsubmit="return confirm('Are you sure you want to leave this activity?');">
                                         @csrf
                                         <button type="submit" class="px-4 py-2 border border-pink-600 text-pink-600 hover:bg-pink-50 rounded-lg text-sm font-medium transition-all">
                                             Leave Activity
@@ -184,7 +184,7 @@
                         <p class="mt-2 text-gray-500 max-w-md mx-auto">
                             Explore our activities page to find and join exciting activities near you!
                         </p>
-                        <a href="/home" class="mt-6 px-6 py-2 inline-block bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all shadow-md">
+                        <a href="/" class="mt-6 px-6 py-2 inline-block bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all shadow-md">
                             Find Activities
                         </a>
                     </div>

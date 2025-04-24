@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Adresse;
 use App\Models\Categorie;
 use App\Models\Centre;
+use App\Models\Participer;
 use App\Models\Type;
 use App\Repositories\Interfaces\ActivityRepositoryInterface;
 use Exception;
@@ -20,9 +21,10 @@ class ActivityController extends Controller
     {
         $this->activityRepository = $activityRepository;
     }
-    public function index() {
+    public function index()
+    {
         $activities = Activity::all();
-        return view('home' , ['activities' => $activities]);
+        return view('home', ['activities' => $activities]);
     }
 
     public function create()
@@ -37,7 +39,7 @@ class ActivityController extends Controller
             'specialities' => $this->getSpecialities()
         ];
 
-        return view('activityCreate' , ['data' => $data]);
+        return view('activityCreate', ['data' => $data]);
     }
 
     public function store(Request $request)
@@ -55,7 +57,7 @@ class ActivityController extends Controller
                 'city' => 'required|string|max:255',
                 'boulevard' => 'required|string|max:255',
                 'centre_id' => 'required',
-                'image' => 'nullable', 
+                'image' => 'nullable',
             ]);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -97,7 +99,6 @@ class ActivityController extends Controller
             return $e->getMessage();
         }
         return redirect()->route('activities.index');
-        
     }
 
 
@@ -142,6 +143,16 @@ class ActivityController extends Controller
 
     public function getSpecialities()
     {
-        return  CentreSpecialite::cases(); 
+        return  CentreSpecialite::cases();
+    }
+
+    public function delete($id)
+    {
+        $user = auth()->user()->id;
+        $activity = Activity::find($id);
+        $activity->users()->detach($user);
+        $activity->participants--;
+        $activity->save();
+        return redirect()->back();
     }
 }

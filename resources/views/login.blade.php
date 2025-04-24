@@ -55,7 +55,7 @@
           <div class="hidden md:flex space-x-5">
             <a href="/" class="text-gray-700 hover:text-blue-800 hover:border-b-2 hover:border-blue-800 px-1 transition-all">Home</a>
             <a href="/activities" class="text-gray-700 hover:text-blue-800 hover:border-b-2 hover:border-blue-800 px-1 transition-all">Activities</a>
-            <a href="/create" class="text-gray-700 hover:text-blue-800 hover:border-b-2 hover:border-blue-800 px-1 transition-all">Create</a>
+            <a href="/activityCreate" class="text-gray-700 hover:text-blue-800 hover:border-b-2 hover:border-blue-800 px-1 transition-all">Create</a>
           </div>
           <div class="flex space-x-3">
             <a href="/register" class="text-blue-800 hover:text-blue-900 font-medium">
