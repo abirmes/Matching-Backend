@@ -21,7 +21,8 @@ class Activity extends Model
 
     public function users()
     {
-      return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'participer')
+            ->withPivot('participater_number');
     }
 
     public function centre()
@@ -40,5 +41,4 @@ class Activity extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
-
 }

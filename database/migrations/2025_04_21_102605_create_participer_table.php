@@ -12,14 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('participer', function (Blueprint $table) {
-            $table->id();
-            $table->integer('participater-number')->unique();
+            $table->integer('participater_number')->unique();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('team_id');
-            $table->foreign('team_id')->references('id')->on('teams');
             $table->unsignedBigInteger('activity_id');
-            $table->foreign('activity_id')->references('id')->on('activities');
+            $table->primary(['user_id', 'activity_id']); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

@@ -6,6 +6,7 @@ use App\Http\Controllers\CenterController;
 use App\Http\Controllers\CentreController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\UserController;
 use App\Models\Categorie;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +29,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::get('/categories', function () {
+Route::get('/dashboard', function () {
     return view('/admin/categories');
 })->name('categories');
+
 
 
 
@@ -71,3 +73,14 @@ Route::post('/categorie/store' , [CategorieController::class , 'store'])->name('
 Route::post('/categorie/edit' , [CategorieController::class , 'edit'])->name('categories.edit');
 Route::post('/categorie/update' , [CategorieController::class , 'update'])->name('categories.update');
 Route::post('/categorie/delete' , [CategorieController::class , 'delete']);
+
+
+
+
+Route::get('/activity/join/{id}' , [UserController::class , 'show'])->name('activity.join');
+Route::post('/activity/join/{id}' , [UserController::class , 'joinActivity']);
+
+Route::post('/activity/join/{id}' , [UserController::class , 'joinActivity']);
+
+
+Route::get('activities' , [UserController::class , 'showUserActivities'])->name('userActivities');
