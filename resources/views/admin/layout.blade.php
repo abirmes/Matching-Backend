@@ -157,7 +157,7 @@
                     </a>
                 </div>
 
-                
+
             </div>
         </sidebar>
 
@@ -288,6 +288,17 @@
                                 </div>
                             </div>
                         </div>
+                        @if(session('success'))
+                        <div class="px-6 py-4 mb-4 text-green-800 bg-green-100 rounded-md">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
+                        @if(session('error'))
+                        <div class="px-6 py-4 mb-4 text-red-800 bg-red-100 rounded-md">
+                            {{ session('error') }}
+                        </div>
+                        @endif
                         @yield('categories')
                         @yield('types')
                         @yield('dashboard')

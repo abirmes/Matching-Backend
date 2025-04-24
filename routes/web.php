@@ -58,12 +58,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    // Route::get('/categories' , [CategorieController::class , 'index'])->name('categoris');
+    Route::get('/dashboard/categories' , [CategorieController::class , 'index'])->name('categories');
     Route::post('/categorie/create', [CategorieController::class, 'create'])->name('categories.create');
     Route::post('/categorie/store', [CategorieController::class, 'store'])->name('categories.store');
     Route::post('/categorie/edit', [CategorieController::class, 'edit'])->name('categories.edit');
     Route::post('/categorie/update', [CategorieController::class, 'update'])->name('categories.update');
-    Route::post('/categorie/delete', [CategorieController::class, 'delete']);
+    Route::delete('/categorie/delete/{id}', [CategorieController::class, 'destroy'])->name('categories.delete');
 
 
 

@@ -12,7 +12,7 @@ class CategorieController extends Controller
     public function index()
     {
         $categories = Categorie::all();
-        return view('categories.index', compact('categories'));
+        return view('./admin/categories', compact('categories'));
     }
 
     /**
@@ -76,19 +76,22 @@ class CategorieController extends Controller
     }
 
     
-    public function destroy(Categorie $category)
-    {
-        // Check if category has contents
-        if ($category->activities()->count() > 0) {
-            return redirect()->route('categories.index')
+    public function destroy( $id)
+    {        // Check if category has contents
+        
+        $category = Categorie::find($id);
+    //   return $category->activities;
+        if ($category->activities->count() > 0) {
+            
+            return back()
                 ->with('error', 'deleting is impossible, category has its own activities.');
         }
 
         $category->delete();
+        
 
-        return redirect()->route('categories.index')
+        return back()
             ->with('success', 'Catégorie supprimée avec succès!');
     }
 
-    
 }
