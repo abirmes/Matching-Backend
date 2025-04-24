@@ -49,21 +49,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/center/update', [CentreController::class, 'update']);
     Route::post('/center/delete', [CentreController::class, 'delete']);
 
-    Route::get('/types', [TypeController::class, 'index']);
-    Route::post('/type/create', [TypeController::class, 'create']);
-    Route::post('/type/store', [TypeController::class, 'store']);
-    Route::post('/type/update', [TypeController::class, 'update']);
-    Route::post('/type/delete', [TypeController::class, 'delete']);
+    Route::get('/dashboard/types', [TypeController::class, 'index'])->name('types');
+    Route::post('/type/create', [TypeController::class, 'create'])->name('types.create');
+    Route::post('/type/store', [TypeController::class, 'store'])->name('types.store');
+    Route::put('/type/update/{id}', [TypeController::class, 'update'])->name('types.update');
+    Route::delete('/type/delete/{id}', [TypeController::class, 'destroy'])->name('types.delete');
 
 
 
 
     Route::get('/dashboard/categories' , [CategorieController::class , 'index'])->name('categories');
     Route::post('/categorie/create', [CategorieController::class, 'create'])->name('categories.create');
-    Route::post('/categorie/store', [CategorieController::class, 'store'])->name('categories.store');
+    Route::post('/categorie/store/', [CategorieController::class, 'store'])->name('categories.store');
     Route::post('/categorie/edit', [CategorieController::class, 'edit'])->name('categories.edit');
-    Route::post('/categorie/update', [CategorieController::class, 'update'])->name('categories.update');
+    Route::put('/categorie/update/{id}', [CategorieController::class, 'update'])->name('categories.update');
     Route::delete('/categorie/delete/{id}', [CategorieController::class, 'destroy'])->name('categories.delete');
+
 
 
 
@@ -71,10 +72,13 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'admin'], function () {
-
     Route::get('/dashboard', function () {
-        return view('/admin/categories');
-    })->name('categories');
+        return view('/admin/dashboard');
+    })->name('dashboard');
+    
+    
+
+
 });
 
 
