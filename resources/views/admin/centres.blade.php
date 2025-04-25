@@ -61,7 +61,7 @@
                                 data-boulevard="{{ $centre->adresse->boulevard }}">
                                 Address
                             </button>
-                            <form action="{{ route('centres.delete', ['id' => $centre->id]) }}" method="POST" style="display: inline;">
+                        <form action="{{ route('centres.delete', ['id' => $centre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="ml-4 text-pink-500 hover:text-pink-700" onclick="return confirm('Are you sure you want to delete this center?')">Delete</button>
@@ -135,6 +135,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <!-- Update Modal -->
@@ -236,6 +237,58 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Center Card Component -->
+<div class="bg-white shadow rounded-lg overflow-hidden w-full md:w-80">
+    <!-- Center Image -->
+    <img src="{{ $centre->image_url ?? '/api/placeholder/400/200' }}" alt="{{ $centre->name ?? 'Center Image' }}" class="w-full h-48 object-cover">
+    
+    <!-- Center Information -->
+    <div class="p-4">
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-medium text-gray-900">{{ $centre->name }}</h3>
+            <span class="px-2 py-1 text-xs font-medium rounded-full {{ $centre->etat == 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                {{ $centre->etat }}
+            </span>
+        </div>
+        
+        <div class="mb-3 text-sm text-gray-600">
+            <span class="font-medium">Speciality:</span> {{ $centre->speciality }}
+        </div>
+        
+        <!-- Address Section -->
+        <div class="mb-4 pb-3 border-b border-gray-200">
+            <div class="text-sm text-gray-600">
+                <div class="mb-1"><span class="font-medium">Country:</span> {{ $centre->adresse->country }}</div>
+                <div class="mb-1"><span class="font-medium">City:</span> {{ $centre->adresse->city }}</div>
+                <div><span class="font-medium">Boulevard:</span> {{ $centre->adresse->boulevard }}</div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex justify-between text-sm font-medium">
+            <button 
+                type="button"
+                class="text-blue-600 hover:text-blue-900"
+                onclick="editCenter({{ $centre->id }})">
+                Edit
+            </button>
+            
+            <button
+                type="button"
+                class="text-green-600 hover:text-green-900"
+                onclick="editAddress({{ $centre->id }})">
+                Address
+            </button>
+            
+            <button 
+                type="button" 
+                class="text-pink-500 hover:text-pink-700"
+                onclick="return confirm('Are you sure you want to delete this center?')">
+                Delete
+            </button>
         </div>
     </div>
 </div>

@@ -110,6 +110,9 @@ class CentreController extends Controller
     public function delete(int $id)
     {
         $centre = Centre::find($id);
+        if($centre->activities->count() > 0){
+            return redirect()->back()->with('error' , 'you can not delete centers that contain activities');
+        }
         $centre->delete();
         return redirect()->back()->with('success' , 'Center deleted with success');
     }

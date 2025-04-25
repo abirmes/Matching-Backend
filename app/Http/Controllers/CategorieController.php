@@ -70,10 +70,6 @@ class CategorieController extends Controller
                 ->withInput();
         }
         
-
-
-
-
         try {
             $category->name = $request->name;
             $category->description = $request->description;

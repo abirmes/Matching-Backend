@@ -129,6 +129,21 @@
                         </svg>
                         Users
                     </a>
+                    <!-- Centres Icon - Building/Office -->
+                    <a href="/dashboard/centres" class="flex items-center px-4 py-2 text-sm font-medium rounded-md {{ request()->is('dashboard/centres') ? 'bg-pink-600 text-white' : 'text-blue-100 hover:bg-pink-600 hover:text-white' }} transition-all">
+                        <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        Centres
+                    </a>
+                    <!-- Addresses Icon - Location/Map Pin -->
+                    <a href="/dashboard/adresses" class="flex items-center px-4 py-2 text-sm font-medium rounded-md {{ request()->is('dashboard/adresses') ? 'bg-pink-600 text-white' : 'text-blue-100 hover:bg-pink-600 hover:text-white' }} transition-all">
+                        <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Adresses
+                    </a>
 
                     <!-- Types Icon - Collection/Categories -->
                     <a href="/dashboard/types" class="flex items-center px-4 py-2 text-sm font-medium rounded-md {{ request()->is('dashboard/types') ? 'bg-pink-600 text-white' : 'text-blue-100 hover:bg-pink-600 hover:text-white' }} transition-all">
@@ -138,13 +153,6 @@
                         Types
                     </a>
 
-                    <!-- Centres Icon - Building/Office -->
-                    <a href="/dashboard/centres" class="flex items-center px-4 py-2 text-sm font-medium rounded-md {{ request()->is('dashboard/centres') ? 'bg-pink-600 text-white' : 'text-blue-100 hover:bg-pink-600 hover:text-white' }} transition-all">
-                        <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        Centres
-                    </a>
 
                     <!-- Categories Icon - Tag/Label -->
                     <a href="/dashboard/categories" class="flex items-center px-4 py-2 text-sm font-medium rounded-md {{ request()->is('dashboard/categories') ? 'bg-pink-600 text-white' : 'text-blue-100 hover:bg-pink-600 hover:text-white' }} transition-all">
@@ -154,14 +162,6 @@
                         Categories
                     </a>
 
-                    <!-- Addresses Icon - Location/Map Pin -->
-                    <a href="/dashboard/adresses" class="flex items-center px-4 py-2 text-sm font-medium rounded-md {{ request()->is('dashboard/adresses') ? 'bg-pink-600 text-white' : 'text-blue-100 hover:bg-pink-600 hover:text-white' }} transition-all">
-                        <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        Adresses
-                    </a>
                 </div>
             </div>
         </sidebar>
