@@ -8,17 +8,20 @@ use App\Models\Centre;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CentreController extends Controller
 {
     public function index()
     {
         $centres = Centre::all();
-        return view('centres', ['centres' => $centres]);
+        $specialities =  CentreSpecialite::cases();
+        return view('/admin/centres', ['centres' => $centres , 'specialities' => $specialities]);
     }
 
     public function store(Request $request)
     {
+        
         DB::beginTransaction();
         try {
             $fields = $request->validate([
@@ -58,19 +61,56 @@ class CentreController extends Controller
 
     public function update(Request $request)
     {
-        $centre = Centre::find($request->id);
+        $centre = Centre::findOrFail($request->id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'spaciality' => 'nullable|string',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
         $centre->name = $request->name;
-        $centre->speciality = $request->speciality;
+        $centre->speciality = CentreSpecialite::from($request['speciality']);
+        $centre->etat = $request->etat;
         $centre->save();
 
 
-        return redirect()->route('centre.index');
+        return redirect()->back()->with('success' , 'center modified successfully');
+    }
+
+    public function updateCentreAdresse(Request $request)
+    {
+        $centre = Centre::findOrFail($request->id);
+
+        $validator = Validator::make($request->all(), [
+            'country' => 'required|string|max:255',
+            'city' => 'string',
+            'boulevard' => 'string',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $centre->adresse->country = $request->country;
+        $centre->adresse->city = $request->city;
+        $centre->adresse->boulevard = $request->boulevard;
+        $centre->adresse->save();
+        $centre->save();
+        return redirect()->back()
+            ->with('success', 'Adresse mise à jour avec succès!');
     }
 
     public function delete(int $id)
     {
         $centre = Centre::find($id);
         $centre->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success' , 'Center deleted with success');
     }
 }

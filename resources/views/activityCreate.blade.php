@@ -309,7 +309,7 @@
           </svg>
         </button>
       </div>
-      <form id="createCenterForm" method="POST" action="{{ route('centers.store') }}">
+      <form id="createCenterForm" method="POST" action="{{ route('centres.store') }}">
         @csrf
         <div class="space-y-4">
           <div>

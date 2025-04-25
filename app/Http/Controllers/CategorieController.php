@@ -59,14 +59,17 @@ class CategorieController extends Controller
         // dd($request['id']);
         $category = Categorie::findOrFail($request['id']);
         // dd($category);
-        try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255|unique:categories,name,' . $category->id . ',id',
                 'description' => 'nullable|string',
             ]);
-        } catch (Exception $e) {
-            return $e->getMessage();
+            
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
+        
 
 
 

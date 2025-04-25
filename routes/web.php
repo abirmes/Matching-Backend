@@ -43,11 +43,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('activities', [UserController::class, 'showUserActivities'])->name('userActivities');
 
-    Route::post('/centerCreate', [CentreController::class, 'store'])->name('centers.store');
-    Route::get('/centers', [CentreController::class, 'index']);
-    Route::post('/center/create', [CentreController::class, 'create']);
-    Route::post('/center/update', [CentreController::class, 'update']);
-    Route::post('/center/delete', [CentreController::class, 'delete']);
+    Route::post('/centerCreate', [CentreController::class, 'store'])->name('centres.store');
+    Route::get('/dashboard/centres', [CentreController::class, 'index'])->name('centres');
+    Route::post('/center/create', [CentreController::class, 'create'])->name('centres.create');
+    Route::put('/center/update', [CentreController::class, 'update'])->name('centres.update');
+    Route::delete('/center/delete/{id}', [CentreController::class, 'delete'])->name('centres.delete');
 
     Route::get('/dashboard/types', [TypeController::class, 'index'])->name('types');
     Route::post('/type/create', [TypeController::class, 'create'])->name('types.create');
@@ -93,6 +93,7 @@ Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
 Route::get('/', [ActivityController::class, 'index'])->name('activities.index');
 Route::get('/activities/{id}', [ActivityController::class, 'show'])->name('activities.show');
+Route::put('/centres/adresses/update/{id}', [CentreController::class, 'updateCentreAdresse'])->name('centres.adresses.update');
 
 
 Route::get('/not-authorized', function () {
