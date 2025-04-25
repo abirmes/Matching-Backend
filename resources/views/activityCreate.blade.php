@@ -39,7 +39,7 @@
         </div>
         <div class="hidden md:flex space-x-5">
           @if ( Auth::check() && Auth::user()->role->name === "admin")
-          <a href="/activities" class="text-gray-700 hover:text-blue-600 px-1">Dashboard</a>
+          <a href="/dashboard" class="text-gray-700 hover:text-blue-600 px-1">Dashboard</a>
           @endif
           <a href="/" class="text-gray-700 hover:text-blue-600 px-1">Home</a>
           <a href="/activities" class="text-gray-700 hover:text-blue-600 px-1">Activities</a>
@@ -309,12 +309,17 @@
           </svg>
         </button>
       </div>
-      <form id="createCenterForm" method="POST" action="{{ route('centers.store') }}">
+      <form id="createCenterForm" method="POST" action="{{ route('centres.store') }}">
         @csrf
         <div class="space-y-4">
           <div>
             <label for="centerName" class="block text-sm font-medium text-gray-700 mb-1">Center Name</label>
             <input id="centerName" name="name" type="text" placeholder="Enter center name" required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="centerImage" class="block text-sm font-medium text-gray-700 mb-1">Center Image URL</label>
+            <input id="centerImage" name="image" type="text" placeholder="Enter center image url" required
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           </div>
           <div>

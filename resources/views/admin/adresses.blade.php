@@ -1,11 +1,10 @@
 @extends('./admin/layout')
-@section('types')
-
+@section('adresses')
 
 <div class="bg-gray-100 p-6">
     <div class="bg-white shadow rounded-lg overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-center">
-            <h2 class="text-lg font-medium text-gray-900">types Table</h2>
+            <h2 class="text-lg font-medium text-gray-900">adresses Table</h2>
             <div class="flex items-center space-x-3">
                 <div class="relative">
                     <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
@@ -27,26 +26,28 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Country</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Boulevard</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($types as $type)
+                    @foreach($adresses as $adresse)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$type->name}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$type->description}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$adresse->country}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$adresse->city}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$adresse->boulevard}}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <button
                                 type="button"
                                 class="text-blue-600 hover:text-blue-900 edit-btn"
-                                data-id="{{ $type->id }}"
-                                data-name="{{ $type->name }}"
-                                data-description="{{ $type->description }}">
+                                data-id="{{ $adresse->id }}"
+                                data-country="{{ $adresse->country }}"
+                                data-city="{{ $adresse->city }}"
+                                data-boulevard="{{ $adresse->boulevard }}">
                                 Edit
                             </button>
-                            <form action="{{ route('types.delete', ['id' => $type->id]) }}" method="POST" style="display: inline;">
+                            <form action="{{ route('adresses.delete', ['id' => $adresse->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="ml-4 text-pink-500 hover:text-pink-700" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
@@ -73,16 +74,21 @@
                             Create New Category
                         </h3>
                         <div class="mt-4">
-                            <form action="{{ route('types.store') }}" method="POST" id="createForm">
+                            <form action="{{ route('adresses.store') }}" method="POST" id="createForm">
                                 @csrf
                                 <div class="mb-4">
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                                    <input type="text" name="name" id="name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                                    <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                                    <input type="text" name="country" id="country" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                                    <textarea name="description" id="description" rows="3" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                                    <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                                    <input type="text" name="city" id="city" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                                 </div>
+                                <div class="mb-4">
+                                    <label for="boulevard" class="block text-sm font-medium text-gray-700">Boulevard</label>
+                                    <input type="text" name="boulevard" id="boulevard" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                                </div>
+                                
                             </form>
                         </div>
                     </div>
@@ -113,19 +119,23 @@
                             Update Category
                         </h3>
                         <div class="mt-4">
-                            <form action="{{ route('types.update', ['id' => $type->id]) }}" method="POST" id="updateForm">
+                            <form action="{{ route('adresses.update', ['id' => $adresse->id]) }}" method="POST" id="updateForm">
                                 @csrf
                                 @method('PUT') <!-- Ensure it's a PUT request to update -->
-                                <input type="hidden" id="edit_id" name="id" value="{{ $type->id }}"> <!-- Set the category ID -->
+                                <input type="hidden" id="edit_id" name="id" value="{{ $adresse->id }}"> <!-- Set the category ID -->
 
                                 <div class="mb-4">
-                                    <label for="edit_name" class="block text-sm font-medium text-gray-700">Name</label>
-                                    <input type="text" name="name" id="edit_name" value="{{ $type->name }}" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                                    <label for="edit_country" class="block text-sm font-medium text-gray-700">country</label>
+                                    <input type="text" name="country" id="edit_country" value="{{ $adresse->country }}" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="edit_description" class="block text-sm font-medium text-gray-700">Description</label>
-                                    <textarea name="description" id="edit_description" rows="3" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ $type->description }}</textarea>
+                                    <label for="edit_city" class="block text-sm font-medium text-gray-700">City</label>
+                                    <input type="text" name="city" id="edit_city" value="{{ $adresse->city }}" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="edit_boulevard" class="block text-sm font-medium text-gray-700">Boulevard</label>
+                                    <input type="text" name="boulevard" id="edit_boulevard" value="{{ $adresse->boulevard }}" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                                 </div>
 
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -159,13 +169,16 @@
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
-                const name = this.getAttribute('data-name');
-                const description = this.getAttribute('data-description');
+                const country = this.getAttribute('data-country');
+                const city = this.getAttribute('data-city');
+                const boulevard = this.getAttribute('data-boulevard');
+
 
                 // Populate form fields
                 document.getElementById('edit_id').value = id;
-                document.getElementById('edit_name').value = name;
-                document.getElementById('edit_description').value = description;
+                document.getElementById('edit_country').value = country;
+                document.getElementById('edit_city').value = city;
+                document.getElementById('edit_boulevard').value = boulevard;
 
                 // Show modal
                 document.getElementById('updateModal').classList.remove('hidden');

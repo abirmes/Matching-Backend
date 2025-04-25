@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StatusEnum;
 use App\Models\Adresse;
 use App\Models\Role;
 use App\Models\Team;
@@ -59,6 +60,8 @@ class UserAuthController extends Controller
         $user->password = $registerUserData['password'] ;
         $user->adresse()->associate($adresse);
         $user->role()->associate($role);
+        $user->status = StatusEnum::Active;
+        $user->merite = 100;
         $user->save();
         return redirect()->route('login');
     }
