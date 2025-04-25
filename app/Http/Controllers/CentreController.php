@@ -8,23 +8,27 @@ use App\Models\Centre;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CentreController extends Controller
 {
     public function index()
     {
         $centres = Centre::all();
-        return view('centres', ['centres' => $centres]);
+        $specialities =  CentreSpecialite::cases();
+        return view('/admin/centres', ['centres' => $centres , 'specialities' => $specialities]);
     }
 
     public function store(Request $request)
     {
+        
         DB::beginTransaction();
         try {
             $fields = $request->validate([
 
                 'speciality' => 'required',
                 'name' => 'required',
+                'image' => 'required',
                 'city' => 'required|string|max:255',
                 'boulevard' => 'required|string|max:255',
                 'country' => 'required|string|max:255',
@@ -33,16 +37,21 @@ class CentreController extends Controller
             $adresse->city = $fields['city'];
             $adresse->country = $fields['country'];
             $adresse->boulevard = $fields['boulevard'];
+
             $adresse->save();
             $centre = new Centre();
             $centre->name = $fields['name'];
+            $centre->image = $fields['image'];
             $centre->speciality = CentreSpecialite::from($fields['speciality']);
             $centre->etat = "open";
             $centre->adresse()->associate($adresse->id);
             $centre->save();
+            DB::commit();
             return redirect()->back();
         } catch (Exception $e) {
             DB::rollback();
+            return back()->withErrors(['error' => $e->getMessage()]);
+
         }
     }
 
@@ -55,19 +64,61 @@ class CentreController extends Controller
 
     public function update(Request $request)
     {
-        $centre = Centre::find($request->id);
+        $centre = Centre::findOrFail($request->id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'spaciality' => 'nullable|string',
+            'image' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
         $centre->name = $request->name;
-        $centre->speciality = $request->speciality;
+        $centre->image = $request->image;
+        $centre->speciality = CentreSpecialite::from($request['speciality']);
+        $centre->etat = $request->etat;
         $centre->save();
 
 
-        return redirect()->route('centre.index');
+        return redirect()->back()->with('success' , 'center modified successfully');
+    }
+
+    public function updateCentreAdresse(Request $request)
+    {
+        $centre = Centre::findOrFail($request->id);
+
+        $validator = Validator::make($request->all(), [
+            'country' => 'required|string|max:255',
+            'city' => 'string',
+            'boulevard' => 'string',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $centre->adresse->country = $request->country;
+        $centre->adresse->city = $request->city;
+        $centre->adresse->boulevard = $request->boulevard;
+        $centre->adresse->save();
+        $centre->save();
+        return redirect()->back()
+            ->with('success', 'Adresse mise à jour avec succès!');
     }
 
     public function delete(int $id)
     {
         $centre = Centre::find($id);
+        if($centre->activities->count() > 0){
+            return redirect()->back()->with('error' , 'you can not delete centers that contain activities');
+        }
         $centre->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success' , 'Center deleted with success');
     }
 }

@@ -11,7 +11,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::all();
-        return view('types.index', compact('types'));
+        return view('/admin/types', compact('types'));
     }
 
     /**
@@ -27,7 +27,7 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:type',
+            'name' => 'required|string|max:255|unique:types',
             'description' => 'nullable|string',
         ]);
 
@@ -42,20 +42,21 @@ class TypeController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('types.index')
+        return redirect()->back()
             ->with('success', 'type created with success!');
     }
 
     
     public function edit(Type $type)
     {
-        return view('categories.edit', compact('categorie'));
+        return view('types.edit', compact('types'));
     }
 
-    public function update(Request $request, Type $type)
+    public function update(Request $request, $id)
     {
+        $type = Type::findOrFail($request['id']);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:categories,name,' . $type->id,
+            'name' => 'required|string|max:255|unique:types,name,' . $type->id.' ,id',
             'description' => 'nullable|string',
         ]);
 
@@ -70,22 +71,23 @@ class TypeController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Catégorie mise à jour avec succès!');
+        return redirect()->back()
+            ->with('success', 'Type mise à jour avec succès!');
     }
 
     
-    public function destroy(Type $category)
+    public function destroy($id)
     {
+        $type = Type::findOrFail($id);
         // Check if category has contents
-        if ($category->activities()->count() > 0) {
-            return redirect()->route('types.index')
+        if ($type->activities()->count() > 0) {
+            return redirect()->back()
                 ->with('error', 'deleting is impossible, type has its own activities.');
         }
 
-        $category->delete();
+        $type->delete();
 
-        return redirect()->route('types.index')
+        return redirect()->back()
             ->with('success', 'Type deleted succefully!');
     }
 }

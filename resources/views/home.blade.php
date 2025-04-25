@@ -66,8 +66,8 @@
                         @if ( Auth::check() && Auth::user()->role->name === "admin")
                         <a href="/dashboard" class="text-gray-700 hover:text-blue-600 px-1">Dashboard</a>
                         @endif
-                        <a href="/home" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
-                        <a href="#" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
+                        <a href="/" class="text-blue-900 font-medium border-b-2 border-pink-500 px-1">Home</a>
+                        <a href="activities" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Activities</a>
                         <a href="/activityCreate" class="text-gray-700 hover:text-pink-500 hover:border-b-2 hover:border-pink-500 px-1 transition-all">Create</a>
                     </div>
                     @guest
@@ -160,7 +160,7 @@
 
                         <div class="mt-5">
                             @if($activity->participants < $activity->max_participants)
-                            <form action="/activity/join/{{ $activity->id }}" method="POST">
+                            <form action="/activity/join/{{ $activity->id }}" method="get">
                                 @csrf
                                 <button type="submit" class="w-full py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg text-sm font-medium transition-all">
                                     Join Activity
@@ -312,19 +312,6 @@
                 filterActivities('all');
             });
             
-            const joinButtons = document.querySelectorAll('button[type="submit"]');
-            joinButtons.forEach(button => {
-                if (!button.disabled) {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const form = this.closest('form');
-                        if (form) {
-                            form.submit();
-                            alert('You have joined this activity!');
-                        }
-                    });
-                }
-            });
         });
     </script>
 </body>
