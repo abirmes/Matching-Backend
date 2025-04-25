@@ -20,57 +20,140 @@
                     </svg>
                     Add New
                 </button>
+                <button id="changeView"  onclick="changeView()" class="inline-flex items-center px-4 py-2 bg-grey-500 text-white text-sm font-medium rounded-md  hover:bg-pink-800">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#333" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="4" cy="4" r="2" />
+                        <circle cx="12" cy="4" r="2" />
+                        <circle cx="20" cy="4" r="2" />
+                        <circle cx="4" cy="12" r="2" />
+                        <circle cx="12" cy="12" r="2" />
+                        <circle cx="20" cy="12" r="2" />
+                        <circle cx="4" cy="20" r="2" />
+                        <circle cx="12" cy="20" r="2" />
+                        <circle cx="20" cy="20" r="2" />
+                    </svg>
+
+                </button>
             </div>
         </div>
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Speciality</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Etat</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+        <div id="gonnaBeHiddenButton1" style="display: none;">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Speciality</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Etat</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($centres as $centre)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->name}}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->speciality}}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->etat}}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->adresse->country}} ,{{$centre->adresse->city}},{{$centre->adresse->boulevard}} </td>
+
+
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button
+                                    type="button"
+                                    class="text-blue-600 hover:text-blue-900 edit-btn"
+                                    data-id="{{ $centre->id }}"
+                                    data-name="{{ $centre->name }}"
+                                    data-speciality="{{ $centre->speciality }}"
+                                    data-etat="{{ $centre->etat }}"
+                                    data-image="{{ $centre->image }}">
+
+                                    Edit
+                                </button>
+                                <button
+                                    type="button"
+                                    class="ml-3 text-green-600 hover:text-green-900 edit-address-btn"
+                                    data-id="{{ $centre->id }}"
+                                    data-country="{{ $centre->adresse->country }}"
+                                    data-city="{{ $centre->adresse->city }}"
+                                    data-boulevard="{{ $centre->adresse->boulevard }}">
+                                    Address
+                                </button>
+                                <form action="{{ route('centres.delete', ['id' => $centre->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="ml-4 text-pink-500 hover:text-pink-700" onclick="return confirm('Are you sure you want to delete this center?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="gonnaBeHiddenButton2" style="display: block;">
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach($centres as $centre)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->name}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->speciality}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->etat}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{$centre->adresse->country}} ,{{$centre->adresse->city}},{{$centre->adresse->boulevard}} </td>
+                    <!-- Center Card Component -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden flex flex-col h-full transition-transform duration-300 hover:shadow-lg hover:scale-102">
+                        <!-- Center Image -->
+                        <img src="{{ $centre->image ?? '/api/placeholder/400/200' }}" alt="{{ $centre->name ?? 'Center Image' }}" class="w-full h-48 object-cover">
 
+                        <!-- Center Information -->
+                        <div class="p-4 flex-grow">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-medium text-gray-900">{{ $centre->name }}</h3>
+                                <span class="px-2 py-1 text-xs font-medium rounded-full {{ $centre->etat == 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $centre->etat }}
+                                </span>
+                            </div>
 
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <button
-                                type="button"
-                                class="text-blue-600 hover:text-blue-900 edit-btn"
-                                data-id="{{ $centre->id }}"
-                                data-name="{{ $centre->name }}"
-                                data-speciality="{{ $centre->speciality }}"
-                                data-etat="{{ $centre->etat }}">
-                                Edit
-                            </button>
-                            <button
-                                type="button"
-                                class="ml-3 text-green-600 hover:text-green-900 edit-address-btn"
-                                data-id="{{ $centre->id }}"
-                                data-country="{{ $centre->adresse->country }}"
-                                data-city="{{ $centre->adresse->city }}"
-                                data-boulevard="{{ $centre->adresse->boulevard }}">
-                                Address
-                            </button>
-                        <form action="{{ route('centres.delete', ['id' => $centre->id]) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="ml-4 text-pink-500 hover:text-pink-700" onclick="return confirm('Are you sure you want to delete this center?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
+                            <div class="mb-3 text-sm text-gray-600">
+                                <span class="font-medium">Speciality:</span> {{ $centre->speciality }}
+                            </div>
+
+                            <!-- Address Section -->
+                            <div class="mb-4 pb-3 border-b border-gray-200">
+                                <div class="text-sm text-gray-600">
+                                    <div class="mb-1"><span class="font-medium">Country:</span> {{ $centre->adresse->country }}</div>
+                                    <div class="mb-1"><span class="font-medium">City:</span> {{ $centre->adresse->city }}</div>
+                                    <div><span class="font-medium">Boulevard:</span> {{ $centre->adresse->boulevard }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex justify-between text-sm font-medium">
+                                <button
+                                    type="button"
+                                    class="text-blue-600 hover:text-blue-900 edit-btn"
+                                    data-id="{{ $centre->id }}"
+                                    data-name="{{ $centre->name }}"
+                                    data-speciality="{{ $centre->speciality }}"
+                                    data-image="{{ $centre->image }}"
+
+                                    data-etat="{{ $centre->etat }}">
+                                    Edit
+                                </button>
+                                <button
+                                    type="button"
+                                    class="ml-3 text-green-600 hover:text-green-900 edit-address-btn"
+                                    data-id="{{ $centre->id }}"
+                                    data-country="{{ $centre->adresse->country }}"
+                                    data-city="{{ $centre->adresse->city }}"
+                                    data-boulevard="{{ $centre->adresse->boulevard }}">
+                                    Address
+                                </button>
+                                <form action="{{ route('centres.delete', ['id' => $centre->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="ml-4 text-pink-500 hover:text-pink-700" onclick="return confirm('Are you sure you want to delete this center?')">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -109,6 +192,10 @@
                                     <textarea name="etat" id="etat" rows="3" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                                 </div>
                                 <div class="mb-4">
+                                    <label for="image" class="block text-sm font-medium text-gray-700">image</label>
+                                    <input type="text" name="image" id="image" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                                </div>
+                                <div class="mb-4">
                                     <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
                                     <input type="text" name="country" id="country" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                                 </div>
@@ -135,7 +222,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <!-- Update Modal -->
@@ -175,8 +262,12 @@
                                     <label for="edit_etat" class="block text-sm font-medium text-gray-700">Etat</label>
                                     <textarea name="etat" id="edit_etat" rows="3" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                                 </div>
+                                <div class="mb-4">
+                                    <label for="edit_image" class="block text-sm font-medium text-gray-700">image</label>
+                                    <textarea name="image" id="edit_image" rows="3" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                                </div>
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                    <button type="submit"  class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-500 text-base font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-500 text-base font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 sm:w-auto sm:text-sm">
                                         Update
                                     </button>
                                     <button type="button" class="closeModal mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
@@ -225,7 +316,7 @@
                                     <input type="text" name="boulevard" id="edit_boulevard" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                    <button type="submit"  class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-500 text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-500 text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
                                         Update Address
                                     </button>
                                     <button type="button" class="closeModal mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
@@ -240,66 +331,26 @@
         </div>
     </div>
 </div>
-<!-- Center Card Component -->
-<div class="bg-white shadow rounded-lg overflow-hidden w-full md:w-80">
-    <!-- Center Image -->
-    <img src="{{ $centre->image_url ?? '/api/placeholder/400/200' }}" alt="{{ $centre->name ?? 'Center Image' }}" class="w-full h-48 object-cover">
-    
-    <!-- Center Information -->
-    <div class="p-4">
-        <div class="flex justify-between items-center mb-3">
-            <h3 class="text-lg font-medium text-gray-900">{{ $centre->name }}</h3>
-            <span class="px-2 py-1 text-xs font-medium rounded-full {{ $centre->etat == 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                {{ $centre->etat }}
-            </span>
-        </div>
-        
-        <div class="mb-3 text-sm text-gray-600">
-            <span class="font-medium">Speciality:</span> {{ $centre->speciality }}
-        </div>
-        
-        <!-- Address Section -->
-        <div class="mb-4 pb-3 border-b border-gray-200">
-            <div class="text-sm text-gray-600">
-                <div class="mb-1"><span class="font-medium">Country:</span> {{ $centre->adresse->country }}</div>
-                <div class="mb-1"><span class="font-medium">City:</span> {{ $centre->adresse->city }}</div>
-                <div><span class="font-medium">Boulevard:</span> {{ $centre->adresse->boulevard }}</div>
-            </div>
-        </div>
-        
-        <!-- Action Buttons -->
-        <div class="flex justify-between text-sm font-medium">
-            <button 
-                type="button"
-                class="text-blue-600 hover:text-blue-900"
-                onclick="editCenter({{ $centre->id }})">
-                Edit
-            </button>
-            
-            <button
-                type="button"
-                class="text-green-600 hover:text-green-900"
-                onclick="editAddress({{ $centre->id }})">
-                Address
-            </button>
-            
-            <button 
-                type="button" 
-                class="text-pink-500 hover:text-pink-700"
-                onclick="return confirm('Are you sure you want to delete this center?')">
-                Delete
-            </button>
-        </div>
-    </div>
-</div>
+
 
 <script>
     // Modal functionality
+    function changeView() {
+            if(document.getElementById('gonnaBeHiddenButton1').style.display === 'none'){
+                document.getElementById('gonnaBeHiddenButton2').style.display = 'none'
+                document.getElementById('gonnaBeHiddenButton1').style.display = 'block'
+            }
+            else{
+                document.getElementById('gonnaBeHiddenButton1').style.display = 'none'
+                document.getElementById('gonnaBeHiddenButton2').style.display = 'block'
+            }
+        };
     document.addEventListener('DOMContentLoaded', function() {
         // Open create modal
         document.getElementById('openCreateModal').addEventListener('click', function() {
             document.getElementById('createModal').classList.remove('hidden');
         });
+        
 
         // Open update modal and populate form
         const editButtons = document.querySelectorAll('.edit-btn');
@@ -309,12 +360,15 @@
                 const name = this.getAttribute('data-name');
                 const speciality = this.getAttribute('data-speciality');
                 const etat = this.getAttribute('data-etat');
+                const image = this.getAttribute('data-image')
 
                 // Populate form fields
                 document.getElementById('edit_id').value = id;
                 document.getElementById('edit_name').value = name;
                 document.getElementById('edit_speciality').value = speciality;
                 document.getElementById('edit_etat').value = etat;
+                document.getElementById('edit_image').value = image;
+
 
                 // Show modal
                 document.getElementById('updateModal').classList.remove('hidden');

@@ -28,6 +28,7 @@ class CentreController extends Controller
 
                 'speciality' => 'required',
                 'name' => 'required',
+                'image' => 'required',
                 'city' => 'required|string|max:255',
                 'boulevard' => 'required|string|max:255',
                 'country' => 'required|string|max:255',
@@ -36,9 +37,11 @@ class CentreController extends Controller
             $adresse->city = $fields['city'];
             $adresse->country = $fields['country'];
             $adresse->boulevard = $fields['boulevard'];
+
             $adresse->save();
             $centre = new Centre();
             $centre->name = $fields['name'];
+            $centre->image = $fields['image'];
             $centre->speciality = CentreSpecialite::from($fields['speciality']);
             $centre->etat = "open";
             $centre->adresse()->associate($adresse->id);
@@ -66,6 +69,7 @@ class CentreController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'spaciality' => 'nullable|string',
+            'image' => 'required',
         ]);
         
         if ($validator->fails()) {
@@ -74,6 +78,7 @@ class CentreController extends Controller
                 ->withInput();
         }
         $centre->name = $request->name;
+        $centre->image = $request->image;
         $centre->speciality = CentreSpecialite::from($request['speciality']);
         $centre->etat = $request->etat;
         $centre->save();
