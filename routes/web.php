@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 
@@ -44,7 +44,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('activities', [UserController::class, 'showUserActivities'])->name('userActivities');
 
-    Route::post('/centerCreate', [CentreController::class, 'store'])->name('centres.store');;
+    Route::post('/centerCreate', [CentreController::class, 'store'])->name('centres.store');
+    Route::get('/city/activities' , [ActivityController::class , 'GetSameCityActivities'])->name('cityActivities');
 });
 
 Route::group(['middleware' =>  ['auth', 'admin']], function () {
@@ -92,6 +93,7 @@ Route::group(['middleware' =>  ['auth', 'admin']], function () {
 
 
 
+    Route::put('/centres/adresses/update/{id}', [CentreController::class, 'updateCentreAdresse'])->name('centres.adresses.update');
     
 });
 
@@ -107,7 +109,6 @@ Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
 Route::get('/', [ActivityController::class, 'index'])->name('activities.index');
 Route::get('/activities/{id}', [ActivityController::class, 'show'])->name('activities.show');
-Route::put('/centres/adresses/update/{id}', [CentreController::class, 'updateCentreAdresse'])->name('centres.adresses.update');
 
 
 Route::get('/not-authorized', function () {

@@ -7,6 +7,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPUnit\Framework\isEmpty;
+
 class AdresseController extends Controller
 {
     public function index()
@@ -71,11 +73,24 @@ class AdresseController extends Controller
     public function destroy($id)
     {        // Check if category has contents
 
+        // return $request->all();
         $adresse = Adresse::find($id);
-        if ($adresse->centre) {
+        // return $adresse->users;
+        // if($adresse->users->isNotEmpty())
+        // { return 'true';}
+        // else{
+        //     return $adresse->users;
+        // }
+        if ($adresse->centre != null ) {
 
             return back()
-                ->with('error', 'deleting is impossible, Adresse has its own centers.');
+                ->with('error', 'deleting is impossible, Adresse has centers in it.');
+        }
+
+        if ( $adresse->users->isNotEmpty()) {
+
+            return back()
+                ->with('error', 'deleting is impossible, Adresse has users in it.');
         }
 
         $adresse->delete();
