@@ -122,6 +122,13 @@ class UserController extends Controller
     {
         $activity = Activity::findOrFail($id);
         $id = auth()->user()->id;
+        $participant = User::findORFail(auth()->user()->id);
+        if($participant->status === 'banned'){
+            return redirect()->back()->with('error' ,'you are banned from any activity for a while ');
+        }
+        if($activity->participants === $activity->max_participznts){
+            return redirect()->back()->with('error' ,'this activity has reached it limits participants ');
+        }
         try {
             $fields = $request->validate([
                 'team' => 'required',
