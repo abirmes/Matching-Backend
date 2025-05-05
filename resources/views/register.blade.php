@@ -102,8 +102,8 @@
                 type="text" 
                 required 
                 class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                placeholder="John Doe"
-                value="{{ old('name') }}"
+                placeholder="Abir"
+                value="{{ old('firstname') }}"
               />
               @error('firstname')
                 <p class="text-xs text-red-600">{{ $message }}</p>
@@ -119,8 +119,8 @@
                 type="text" 
                 required 
                 class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                placeholder="John Doe"
-                value="{{ old('name') }}"
+                placeholder="Meskini"
+                value="{{ old('lastname') }}"
               />
               @error('name')
                 <p class="text-xs text-red-600">{{ $message }}</p>
@@ -191,7 +191,7 @@
                   type="text" 
                   required 
                   class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                  placeholder="New York"
+                  placeholder="Oujda"
                   value="{{ old('city') }}"
                 />
                 @error('city')
@@ -215,6 +215,7 @@
                   <option value="AU">Australia</option>
                   <option value="FR">France</option>
                   <option value="DE">Germany</option>
+                  <option value="MC">Morocco</option>
                 </select>
                 @error('country')
                   <p class="text-xs text-red-600">{{ $message }}</p>

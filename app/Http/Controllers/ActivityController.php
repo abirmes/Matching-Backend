@@ -32,7 +32,7 @@ class ActivityController extends Controller
         } else {
             $activities = Activity::where('date_debut', '>=',  Carbon::now())->get();
         }
-        
+
         $categories = Categorie::all();
 
         return view('home', [
@@ -80,19 +80,21 @@ class ActivityController extends Controller
                 'image' => 'nullable',
             ]);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return redirect()->back()->with('error' , $e->getMessage());
         }
 
 
 
-        try {
-            $adresse = Adresse::where('country', $fields['country'])
-                ->where('city', $fields['city'])
-                ->where('boulevard', $fields['boulevard'])
-                ->first();
-        } catch (Exception $e) {
-            return $e->getMessage();
+
+        $adresse = Adresse::where('country', $fields['country'])
+            ->where('city', $fields['city'])
+            ->where('boulevard', $fields['boulevard'])
+            ->first();
+
+        if(!$adresse){
+            return redirect()->back()->with('error' , 'There is no centers on this adresse, please chose an existing adresse');
         }
+
         try {
             $centre = Centre::where('id', $fields['centre_id'])
                 ->where('adresse_id', $adresse->id)
