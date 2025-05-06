@@ -38,7 +38,7 @@ class AdresseController extends Controller
         ]);
 
         return redirect()->back()
-            ->with('success', 'Catégory created with success!');
+            ->with('success', 'Adresse created with success!');
     }
 
     public function update(Request $request)
@@ -67,7 +67,7 @@ class AdresseController extends Controller
         
 
         return redirect()->back()
-            ->with('success', 'Catégorie mise à jour avec succès!');
+            ->with('success', 'Adresse updated successfully!');
     }
 
     public function destroy($id)
@@ -97,7 +97,7 @@ class AdresseController extends Controller
 
 
         return back()
-            ->with('success', 'Adresse supprimée avec succès!');
+            ->with('success', 'Adress deleted successfully!');
     }
 
 

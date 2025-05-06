@@ -80,7 +80,7 @@ class CategorieController extends Controller
         }
 
         return redirect()->back()
-            ->with('success', 'Catégorie mise à jour avec succès!');
+            ->with('success', 'Category updated successfully!');
     }
 
 
