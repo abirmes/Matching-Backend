@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 
@@ -44,13 +44,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('activities', [UserController::class, 'showUserActivities'])->name('userActivities');
 
-    Route::post('/centerCreate', [CentreController::class, 'store'])->name('centres.store');;
+    Route::post('/centerCreate', [CentreController::class, 'store'])->name('centres.store');
+    Route::get('/city/activities', [ActivityController::class, 'GetSameCityActivities'])->name('cityActivities');
 });
 
 Route::group(['middleware' =>  ['auth', 'admin']], function () {
-    Route::get('/dashboard', function () {
-        return view('/admin/dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',[UserController::class,'statistics'])->name('dashboard');
     Route::get('/dashboard/categories', [CategorieController::class, 'index'])->name('categories');
     Route::get('/dashboard/types', [TypeController::class, 'index'])->name('types');
 
@@ -84,15 +83,15 @@ Route::group(['middleware' =>  ['auth', 'admin']], function () {
     Route::put('/user/update', [UserController::class, 'update'])->name('users.update');
     Route::delete('/user/delete', [UserController::class, 'delete'])->name('users.delete');
 
-    Route::put('/users/role/apdate' , [UserController::class , 'updateUserRole'])->name('users.role.update');
-    Route::put('/users/status/apdate' , [UserController::class , 'updateUserStatus'])->name('users.status.update');
-    Route::put('/users/merite/apdate' , [UserController::class , 'updateUserMerite'])->name('users.merite.update');
-    Route::put('/users/adresse/apdate' , [UserController::class , 'updateUserAdresse'])->name('users.addresse.update');
+    Route::put('/users/role/apdate', [UserController::class, 'updateUserRole'])->name('users.role.update');
+    Route::put('/users/status/apdate', [UserController::class, 'updateUserStatus'])->name('users.status.update');
+    Route::put('/users/merite/apdate', [UserController::class, 'updateUserMerite'])->name('users.merite.update');
+    Route::put('/users/adresse/apdate', [UserController::class, 'updateUserAdresse'])->name('users.addresse.update');
 
 
 
 
-    
+    Route::put('/centres/adresses/update/{id}', [CentreController::class, 'updateCentreAdresse'])->name('centres.adresses.update');
 });
 
 
@@ -107,9 +106,10 @@ Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
 Route::get('/', [ActivityController::class, 'index'])->name('activities.index');
 Route::get('/activities/{id}', [ActivityController::class, 'show'])->name('activities.show');
-Route::put('/centres/adresses/update/{id}', [CentreController::class, 'updateCentreAdresse'])->name('centres.adresses.update');
 
-
+Route::fallback(function () {
+    return redirect('/');
+});
 Route::get('/not-authorized', function () {
     return view('/notAuthorized');
 })->name('notAuthorized');

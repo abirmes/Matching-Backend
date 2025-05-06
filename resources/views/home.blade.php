@@ -103,21 +103,37 @@
 
         <main class="container mx-auto px-4 py-6">
             <div class="mb-8 flex flex-wrap gap-2 justify-center">
-                <button data-category="all" class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all shadow-sm bg-pink-600 text-white">
-                    All
-                </button>
-                @foreach(['sports', 'music', 'arts', 'technology', 'drawing'] as $category)
-                <button data-category="{{ $category }}" class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all shadow-sm bg-white text-blue-800 hover:bg-pink-50">
-                    {{ ucfirst($category) }}
-                </button>
-                @endforeach
+                <form action="{{route('activities.index')}}" method="get">
+                    @csrf
+                    <button name="all" class=" {{Request()->query('categorie_name')  == null ? 'bg-pink-600 text-white' : 'text-blue-800  bg-white' }}   category-btn px-4 py-2 rounded-full text-sm font-medium transition-all shadow-sm ">
+                        All
+                    </button>
+
+                    @foreach($categories as $category)
+                    <input name="categorie_name" value="{{ $category->name }}" type="submit" class=" {{ Request()->query('categorie_name') == $category->name ? 'bg-pink-600 text-white' : 'text-blue-800  bg-white'}} category-btn px-4 py-2 rounded-full text-sm font-medium transition-all shadow-sm hover:bg-pink-50 cursor-pointer" />
+                    @endforeach
+                </form>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="activities-container">
+                @if($activities->count() == 0 )
+                <div id="empty-state" class="col-span-3 text-center py-12 bg-white rounded-xl shadow-lg my-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <h3 class="mt-6 text-xl font-bold text-gray-900">No activities found</h3>
+                    <p class="mt-2 text-gray-500 max-w-md mx-auto">
+                        We couldn't find any activities matching your search criteria.
+                    </p>
+                    <button id="view-all-btn" class="mt-6 px-6 py-2 inline-block bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all shadow-md">
+                        View All Activities
+                    </button>
+                </div>
+                @endif
                 @foreach($activities as $activity)
-                <div data-category="{{ $activity->categorie->name }}" class="activity-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300">
+                <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300">
                     <div class="relative">
-                        
+
                         <img src="{{ $activity->image }}" alt="{{ $activity->name }}" class="w-full h-48 object-cover">
                         <div class="absolute top-0 right-0 bg-blue-800 text-white px-3 py-1 m-3 rounded-full text-xs font-medium shadow-md">
                             {{ $activity->categorie->name }}
@@ -154,45 +170,34 @@
 
                         <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5">
                             <div class="h-2.5 rounded-full {{ $activity->participants >= $activity->max_participants ? 'bg-pink-500' : 'bg-pink-600' }}"
-                                style="width: {{ ($activity->participants / $activity->max_participants) * 100 }}%">
+                                style="width: {{ ($activity->participants / $activity->max_participants) * 100 }} %">
                             </div>
                         </div>
 
                         <div class="mt-5">
                             @if($activity->participants < $activity->max_participants)
-                            <form action="/activity/join/{{ $activity->id }}" method="get">
-                                @csrf
-                                <button type="submit" class="w-full py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg text-sm font-medium transition-all">
-                                    Join Activity
+                                <form action="/activity/join/{{ $activity->id }}" method="get">
+                                    @csrf
+                                    <button type="submit" class="w-full py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg text-sm font-medium transition-all">
+                                        Join Activity
+                                    </button>
+                                </form>
+                                @else
+                                <button disabled class="w-full py-2 px-4 bg-gray-400 text-white rounded-lg text-sm font-medium cursor-not-allowed">
+                                    Activity Full
                                 </button>
-                            </form>
-                            @else
-                            <button disabled class="w-full py-2 px-4 bg-gray-400 text-white rounded-lg text-sm font-medium cursor-not-allowed">
-                                Activity Full
-                            </button>
-                            @endif
-                            <a href="{{route('activities.show' , ['id' => $activity->id])}}"
-                                class="mt-3 inline-block w-full text-center py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all">
-                                Show Detail
-                            </a>
+                                @endif
+                                <a href="{{route('activities.show' , ['id' => $activity->id])}}"
+                                    class="mt-3 inline-block w-full text-center py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all">
+                                    Show Detail
+                                </a>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
 
-            <div id="empty-state" class="hidden col-span-3 text-center py-12 bg-white rounded-xl shadow-lg my-8">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                <h3 class="mt-6 text-xl font-bold text-gray-900">No activities found</h3>
-                <p class="mt-2 text-gray-500 max-w-md mx-auto">
-                    We couldn't find any activities matching your search criteria.
-                </p>
-                <button id="view-all-btn" class="mt-6 px-6 py-2 inline-block bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all shadow-md">
-                    View All Activities
-                </button>
-            </div>
+
 
             <div class="my-12 bg-gradient-to-r from-blue-900 to-pink-600 rounded-xl shadow-lg overflow-hidden">
                 <div class="md:flex items-center">
@@ -205,9 +210,7 @@
                             Create New Activity
                         </a>
                     </div>
-                    <div class="hidden md:block md:w-1/3 p-8">
-                        <img src="/api/placeholder/400/300" alt="Create activity" class="rounded-lg shadow-lg">
-                    </div>
+
                 </div>
             </div>
         </main>
@@ -259,61 +262,6 @@
             </div>
         </footer>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            const activityCards = document.querySelectorAll('.activity-card');
-            const emptyState = document.getElementById('empty-state');
-            const activitiesContainer = document.getElementById('activities-container');
-            const viewAllBtn = document.getElementById('view-all-btn');
-
-            function filterActivities(category) {
-                let visibleCount = 0;
-
-                activityCards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-
-                    if (category === 'all' || cardCategory === category) {
-                        card.classList.remove('hidden');
-                        visibleCount++;
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-
-                if (visibleCount === 0) {
-                    emptyState.classList.remove('hidden');
-                    activitiesContainer.classList.add('hidden');
-                } else {
-                    emptyState.classList.add('hidden');
-                    activitiesContainer.classList.remove('hidden');
-                }
-
-                categoryButtons.forEach(btn => {
-                    if (btn.getAttribute('data-category') === category) {
-                        btn.classList.remove('bg-white', 'text-blue-800');
-                        btn.classList.add('bg-pink-600', 'text-white');
-                    } else {
-                        btn.classList.remove('bg-pink-600', 'text-white');
-                        btn.classList.add('bg-white', 'text-blue-800');
-                    }
-                });
-            }
-
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    filterActivities(category);
-                });
-            });
-
-            viewAllBtn.addEventListener('click', function() {
-                filterActivities('all');
-            });
-            
-        });
-    </script>
 </body>
 
 </html>

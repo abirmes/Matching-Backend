@@ -109,7 +109,7 @@ class CentreController extends Controller
         $centre->adresse->save();
         $centre->save();
         return redirect()->back()
-            ->with('success', 'Adresse mise à jour avec succès!');
+            ->with('success', 'Adress updated successfully!');
     }
 
     public function delete(int $id)

@@ -10,6 +10,7 @@ use App\Models\Centre;
 use App\Models\Participer;
 use App\Models\Type;
 use App\Repositories\Interfaces\ActivityRepositoryInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -21,10 +22,29 @@ class ActivityController extends Controller
     {
         $this->activityRepository = $activityRepository;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $activities = Activity::all();
-        return view('home', ['activities' => $activities]);
+        $activities = [];
+
+        if ($request->has('categorie_name') && $request->categorie_name) {
+            $categorie = Categorie::where('name', $request['categorie_name'])->first();
+            $activities = Activity::where('categorie_id', $categorie->id)->where('date_debut', '>=',  Carbon::now())->get();
+        } else {
+            $activities = Activity::where('date_debut', '>=',  Carbon::now())->get();
+        }
+
+        $categories = Categorie::all();
+
+        return view('home', [
+            'activities' => $activities,
+            'categories' => $categories
+        ]);
+    }
+
+    public function GetSameCityActivities()
+    {
+        $user = auth()->user();
+        return $user;
     }
 
     public function create()
@@ -60,19 +80,21 @@ class ActivityController extends Controller
                 'image' => 'nullable',
             ]);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return redirect()->back()->with('error' , $e->getMessage());
         }
 
 
 
-        try {
-            $adresse = Adresse::where('country', $fields['country'])
-                ->where('city', $fields['city'])
-                ->where('boulevard', $fields['boulevard'])
-                ->first();
-        } catch (Exception $e) {
-            return $e->getMessage();
+
+        $adresse = Adresse::where('country', $fields['country'])
+            ->where('city', $fields['city'])
+            ->where('boulevard', $fields['boulevard'])
+            ->first();
+
+        if(!$adresse){
+            return redirect()->back()->with('error' , 'There is no centers on this adresse, please chose an existing adresse');
         }
+
         try {
             $centre = Centre::where('id', $fields['centre_id'])
                 ->where('adresse_id', $adresse->id)
@@ -148,11 +170,20 @@ class ActivityController extends Controller
 
     public function delete($id)
     {
+
+
+
+
         $user = auth()->user()->id;
         $activity = Activity::find($id);
+        $date_debut = Carbon::parse($activity->date_debut);
+        $now = Carbon::now();
+        if ($now->diffInHours($date_debut) < 24) {
+            return redirect()->route('userActivities')->with('error', 'the activity is about to begin , can not leave it');
+        }
         $activity->users()->detach($user);
         $activity->participants--;
         $activity->save();
-        return redirect()->back();
+        return redirect()->route('userActivities')->with('success', 'you left that activity');
     }
 }

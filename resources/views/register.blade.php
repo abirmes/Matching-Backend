@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,56 +8,65 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
-    
+
     .fade-in {
       animation: fadeIn 0.5s ease-in;
     }
+
     .transition-all {
       transition: all 0.3s ease;
     }
+
     :focus {
       outline: 2px solid #1e40af;
       outline-offset: 2px;
     }
+
     ::-webkit-scrollbar {
       width: 8px;
     }
-    
+
     ::-webkit-scrollbar-track {
       background: #f1f5f9;
     }
-    
+
     ::-webkit-scrollbar-thumb {
       background: #94a3b8;
       border-radius: 4px;
     }
-    
+
     ::-webkit-scrollbar-thumb:hover {
       background: #64748b;
     }
-    
+
     .compact-form .mt-1 {
       margin-top: 0.25rem;
     }
-    
+
     .compact-form .space-y-6 {
       margin-top: 1rem;
       margin-bottom: 1rem;
     }
-    
+
     .compact-form label {
       margin-bottom: 0;
     }
-    
+
     .compact-form input {
       padding-top: 0.375rem;
       padding-bottom: 0.375rem;
     }
   </style>
 </head>
+
 <body>
   <div class="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
     <div class="fixed top-0 w-full bg-white shadow-md py-2 z-10">
@@ -83,6 +93,17 @@
     </div>
 
     <div class="max-w-md w-full bg-white rounded-xl shadow-xl overflow-hidden mt-12 mb-4">
+      @if(session('success'))
+      <div class="px-6 py-4 mb-4 text-green-800 bg-green-100 rounded-md">
+        {{ session('success') }}
+      </div>
+      @endif
+
+      @if(session('error'))
+      <div class="px-6 py-4 mb-4 text-red-800 bg-red-100 rounded-md">
+        {{ session('error') }}
+      </div>
+      @endif
       <div class="bg-gradient-to-r from-pink-600 to-pink-500 py-3">
         <div class="text-center">
           <h2 class="text-2xl font-bold text-white">Create an Account</h2>
@@ -96,175 +117,149 @@
           <div>
             <label for="firstname" class="block text-xs font-medium text-gray-700">Firstname</label>
             <div class="mt-1">
-              <input 
-                id="name" 
-                name="firstname" 
-                type="text" 
-                required 
+              <input
+                id="name"
+                name="firstname"
+                type="text"
+                required
                 class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                placeholder="John Doe"
-                value="{{ old('name') }}"
-              />
-              @error('firstname')
-                <p class="text-xs text-red-600">{{ $message }}</p>
-              @enderror
+                placeholder="Abir"
+                value="{{ old('firstname') }}" />
+
             </div>
           </div>
           <div>
             <label for="lastname" class="block text-xs font-medium text-gray-700">Lastname</label>
             <div class="mt-1">
-              <input 
-                id="name" 
-                name="lastname" 
-                type="text" 
-                required 
+              <input
+                id="name"
+                name="lastname"
+                type="text"
+                required
                 class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                placeholder="John Doe"
-                value="{{ old('name') }}"
-              />
-              @error('name')
-                <p class="text-xs text-red-600">{{ $message }}</p>
-              @enderror
-            </div>
-          </div>
+                placeholder="Meskini"
+                value="{{ old('lastname') }}" />
 
-          <div>
-            <label for="email" class="block text-xs font-medium text-gray-700">Email</label>
-            <div class="mt-1">
-              <input 
-                id="email" 
-                name="email" 
-                type="email" 
-                required 
-                class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                placeholder="your@email.com"
-                value="{{ old('email') }}"
-              />
-              @error('email')
-                <p class="text-xs text-red-600">{{ $message }}</p>
-              @enderror
             </div>
-          </div>
 
-          <div>
-            <label for="date_of_birth" class="block text-xs font-medium text-gray-700">Date of Birth</label>
-            <div class="mt-1">
-              <input 
-                id="date_of_birth" 
-                name="date_naissance" 
-                type="date" 
-                required 
-                class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                value="{{ old('date_of_birth') }}"
-              />
-              @error('date_of_birth')
-                <p class="text-xs text-red-600">{{ $message }}</p>
-              @enderror
-            </div>
-          </div>
-
-          <div>
-            <label for="boulevard" class="block text-xs font-medium text-gray-700">Boulevard/Street</label>
-            <div class="mt-1">
-              <input 
-                id="boulevard" 
-                name="boulevard" 
-                type="text" 
-                required 
-                class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                placeholder="123 Main St"
-                value="{{ old('boulevard') }}"
-              />
-              @error('boulevard')
-                <p class="text-xs text-red-600">{{ $message }}</p>
-              @enderror
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2">
             <div>
-              <label for="city" class="block text-xs font-medium text-gray-700">City</label>
+              <label for="email" class="block text-xs font-medium text-gray-700">Email</label>
               <div class="mt-1">
-                <input 
-                  id="city" 
-                  name="city" 
-                  type="text" 
-                  required 
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
                   class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                  placeholder="New York"
-                  value="{{ old('city') }}"
-                />
-                @error('city')
-                  <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
+                  placeholder="your@email.com"
+                  value="{{ old('email') }}" />
+
               </div>
             </div>
+
             <div>
-              <label for="country" class="block text-xs font-medium text-gray-700">Country</label>
+              <label for="date_of_birth" class="block text-xs font-medium text-gray-700">Date of Birth</label>
               <div class="mt-1">
-                <select 
-                  id="country" 
-                  name="country" 
-                  required 
+                <input
+                  id="date_of_birth"
+                  name="date_naissance"
+                  type="date"
+                  required
                   class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                >
-                  <option value="">Select</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="UK">United Kingdom</option>
-                  <option value="AU">Australia</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
-                </select>
-                @error('country')
-                  <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
+                  value="{{ old('date_of_birth') }}" />
+
               </div>
             </div>
-          </div>
 
-
-          <div class="grid grid-cols-2 gap-2">
             <div>
-              <label for="password" class="block text-xs font-medium text-gray-700">Password</label>
+              <label for="boulevard" class="block text-xs font-medium text-gray-700">Boulevard/Street</label>
               <div class="mt-1">
-                <input 
-                  id="password" 
-                  name="password" 
-                  type="password" 
-                  required 
+                <input
+                  id="boulevard"
+                  name="boulevard"
+                  type="text"
+                  required
                   class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                  placeholder="••••••••"
-                />
-                @error('password')
-                  <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
+                  placeholder="123 Main St"
+                  value="{{ old('boulevard') }}" />
+
               </div>
             </div>
-            <div>
-              <label for="password-confirmation" class="block text-xs font-medium text-gray-700">Confirm Password</label>
-              <div class="mt-1">
-                <input 
-                  id="password-confirmation" 
-                  name="password_confirmation" 
-                  type="password" 
-                  required 
-                  class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
-                  placeholder="••••••••"
-                />
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label for="city" class="block text-xs font-medium text-gray-700">City</label>
+                <div class="mt-1">
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    required
+                    class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    placeholder="Oujda"
+                    value="{{ old('city') }}" />
+
+                </div>
+              </div>
+              <div>
+                <label for="country" class="block text-xs font-medium text-gray-700">Country</label>
+                <div class="mt-1">
+                  <select
+                    id="country"
+                    name="country"
+                    required
+                    class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm">
+                    <option value="">Select</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="AU">Australia</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="MC">Morocco</option>
+                  </select>
+
+                </div>
               </div>
             </div>
-          </div>
-          <p class="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
 
-          <div class="mt-4">
-            <button 
-              type="submit" 
-              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-            >
-              Create Account
-            </button>
-          </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label for="password" class="block text-xs font-medium text-gray-700">Password</label>
+                <div class="mt-1">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    placeholder="••••••••" />
+
+                </div>
+              </div>
+              <div>
+                <label for="password-confirmation" class="block text-xs font-medium text-gray-700">Confirm Password</label>
+                <div class="mt-1">
+                  <input
+                    id="password-confirmation"
+                    name="password_confirmation"
+                    type="password"
+                    required
+                    class="appearance-none block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    placeholder="••••••••" />
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
+
+            <div class="mt-4">
+              <button
+                type="submit"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+                Create Account
+              </button>
+            </div>
         </form>
 
         <div class="mt-3 text-center">
@@ -279,4 +274,5 @@
     </div>
   </div>
 </body>
+
 </html>
