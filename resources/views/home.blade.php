@@ -170,7 +170,7 @@
 
                         <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5">
                             <div class="h-2.5 rounded-full {{ $activity->participants >= $activity->max_participants ? 'bg-pink-500' : 'bg-pink-600' }}"
-                                style="width: {{ ($activity->participants / $activity->max_participants) * 100 }}%">
+                                style="width: {{ ($activity->participants / $activity->max_participants) * 100 }} %">
                             </div>
                         </div>
 
@@ -262,25 +262,6 @@
             </div>
         </footer>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            const activityCards = document.querySelectorAll('.activity-card');
-            const emptyState = document.getElementById('empty-state');
-            const activitiesContainer = document.getElementById('activities-container');
-            const viewAllBtn = document.getElementById('view-all-btn');
-
-
-
-
-
-            viewAllBtn.addEventListener('click', function() {
-                filterActivities('all');
-            });
-
-        });
-    </script>
 </body>
 
 </html>

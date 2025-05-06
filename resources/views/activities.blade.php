@@ -127,7 +127,7 @@
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all">
                         <div class="md:flex">
                             <div class="md:w-1/4 relative">
-                                <img src="{{ $activity->image }}" alt="{{ $activity->name }}" class="w-full h-full object-cover md:h-full">
+                                <img src="{{ $activity->image }}" alt="{{ $activity->name }}" class="w-[300px] h-[200px] object-cover grayscale opacity-80">
                                 <div class="absolute top-0 right-0 bg-blue-800 text-white px-3 py-1 m-3 rounded-full text-xs font-medium shadow-md">
                                     {{ $activity->categorie->name }}
                                 </div>
@@ -211,7 +211,7 @@
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all">
                         <div class="md:flex">
                             <div class="md:w-1/4 relative">
-                                <img src="{{ $activity->image }}" alt="{{ $activity->name }}" class="w-full h-full object-cover md:h-full grayscale opacity-80">
+                                <img src="{{ $activity->image }}" alt="{{ $activity->name }}" class="w-[300px] h-[200px] object-cover grayscale opacity-80">
                                 <div class="absolute top-0 right-0 bg-gray-600 text-white px-3 py-1 m-3 rounded-full text-xs font-medium shadow-md">
                                     {{ $activity->categorie->name }}
                                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\StatusEnum;
 use App\Models\Activity;
+use App\Models\Categorie;
 use App\Models\Participer;
 use App\Models\Role;
 use App\Models\Team;
@@ -74,7 +75,7 @@ class UserController extends Controller
         $user = User::findOrFail($request->id);
         try {
             $fields = $request->validate([
-                'merite' => 'required|numeric|lt:100',
+                'merite' => 'required|numeric|lt:101',
             ]);
         } catch (Exception $e) {
             return redirect()->back()->with(['error' , 'you should select a valide merite ']);
@@ -171,5 +172,20 @@ class UserController extends Controller
         };
         return view('/activities' , ['userActivities' => $userActivities]);        return view('/activities' , ['userActivities' => $userActivities]);
 
+    }
+
+
+    public function statistics(){
+        $users = User::count();
+        $atcivities = Activity::count();
+        $categories = Categorie::count();
+        $participations = Participer::count();
+
+        return view(
+            '/admin/dashboard' , ['users' => $users,
+            'atcivities' => $atcivities,
+            'categories' => $categories,
+            'participations' => $participations]
+        );
     }
 }

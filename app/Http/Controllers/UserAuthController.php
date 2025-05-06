@@ -40,7 +40,7 @@ class UserAuthController extends Controller
     
             ]);
         } catch(Exception $e){
-            return $e->getMessage();
+            return redirect()->back()->with('error' , $e->getMessage());
         }
 
         $adresse = new Adresse();

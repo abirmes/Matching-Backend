@@ -71,8 +71,14 @@
   <main class="container mx-auto px-4 py-4 mb-12">
     <div class="form-container mx-auto bg-white rounded-xl shadow-lg p-5 md:p-6">
       @if(session('success'))
-      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 mb-4 rounded relative" role="alert">
-        <span class="block sm:inline">{{ session('success') }}</span>
+      <div class="px-6 py-4 mb-4 text-green-800 bg-green-100 rounded-md">
+        {{ session('success') }}
+      </div>
+      @endif
+
+      @if(session('error'))
+      <div class="px-6 py-4 mb-4 text-red-800 bg-red-100 rounded-md">
+        {{ session('error') }}
       </div>
       @endif
 
