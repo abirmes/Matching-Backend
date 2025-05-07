@@ -94,12 +94,9 @@
             <div class="container mx-auto px-4 py-8">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach($centres as $centre)
-                    <!-- Center Card Component -->
                     <div class="bg-white shadow rounded-lg overflow-hidden flex flex-col h-full transition-transform duration-300 hover:shadow-lg hover:scale-102">
-                        <!-- Center Image -->
                         <img src="{{ $centre->image ?? '/api/placeholder/400/200' }}" alt="{{ $centre->name ?? 'Center Image' }}" class="w-full h-48 object-cover">
 
-                        <!-- Center Information -->
                         <div class="p-4 flex-grow">
                             <div class="flex justify-between items-center mb-3">
                                 <h3 class="text-lg font-medium text-gray-900">{{ $centre->name }}</h3>
@@ -112,7 +109,6 @@
                                 <span class="font-medium">Speciality:</span> {{ $centre->speciality }}
                             </div>
 
-                            <!-- Address Section -->
                             <div class="mb-4 pb-3 border-b border-gray-200">
                                 <div class="text-sm text-gray-600">
                                     <div class="mb-1"><span class="font-medium">Country:</span> {{ $centre->adresse->country }}</div>
@@ -121,7 +117,6 @@
                                 </div>
                             </div>
 
-                            <!-- Action Buttons -->
                             <div class="flex justify-between text-sm font-medium">
                                 <button
                                     type="button"
@@ -158,7 +153,6 @@
     </div>
 </div>
 
-<!-- Create Modal -->
 <div id="createModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -225,7 +219,6 @@
 
 </div>
 
-<!-- Update Modal -->
 <div id="updateModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -283,7 +276,6 @@
     </div>
 </div>
 
-<!-- Address Modal -->
 <div id="addressModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -334,7 +326,7 @@
 
 
 <script>
-    // Modal functionality
+    
     function changeView() {
             if(document.getElementById('gonnaBeHiddenButton1').style.display === 'none'){
                 document.getElementById('gonnaBeHiddenButton2').style.display = 'none'
@@ -346,13 +338,12 @@
             }
         };
     document.addEventListener('DOMContentLoaded', function() {
-        // Open create modal
+        
         document.getElementById('openCreateModal').addEventListener('click', function() {
             document.getElementById('createModal').classList.remove('hidden');
         });
         
 
-        // Open update modal and populate form
         const editButtons = document.querySelectorAll('.edit-btn');
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -362,7 +353,6 @@
                 const etat = this.getAttribute('data-etat');
                 const image = this.getAttribute('data-image')
 
-                // Populate form fields
                 document.getElementById('edit_id').value = id;
                 document.getElementById('edit_name').value = name;
                 document.getElementById('edit_speciality').value = speciality;
@@ -370,12 +360,10 @@
                 document.getElementById('edit_image').value = image;
 
 
-                // Show modal
                 document.getElementById('updateModal').classList.remove('hidden');
             });
         });
 
-        // Open address modal and populate form
         const editAddressButtons = document.querySelectorAll('.edit-address-btn');
         editAddressButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -384,18 +372,15 @@
                 const city = this.getAttribute('data-city');
                 const boulevard = this.getAttribute('data-boulevard');
 
-                // Populate form fields
                 document.getElementById('address_centre_id').value = id;
                 document.getElementById('edit_country').value = country;
                 document.getElementById('edit_city').value = city;
                 document.getElementById('edit_boulevard').value = boulevard;
 
-                // Show modal
                 document.getElementById('addressModal').classList.remove('hidden');
             });
         });
 
-        // Close modals
         const closeButtons = document.querySelectorAll('.closeModal');
         closeButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -405,7 +390,6 @@
             });
         });
 
-        // Close modals when clicking outside
         window.addEventListener('click', function(event) {
             if (event.target.classList.contains('fixed') && event.target.classList.contains('inset-0')) {
                 document.getElementById('createModal').classList.add('hidden');

@@ -45,7 +45,6 @@
 </head>
 <body>
   <div class="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
-    <!-- Header with Logo -->
     <div class="fixed top-0 w-full bg-white shadow-md py-2 z-10">
       <div class="container mx-auto px-4">
         <nav class="flex items-center justify-between">
@@ -98,7 +97,6 @@
             </div>
           </div>
 
-          <!-- Password -->
           <div>
             <div class="flex justify-between">
               <label for="password" class="block text-sm font-medium text-gray-700">Password</label>

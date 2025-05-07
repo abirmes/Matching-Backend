@@ -83,7 +83,6 @@
     </div>
 </div>
 
-<!-- Role Modal -->
 <div id="roleModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -125,7 +124,6 @@
     </div>
 </div>
 
-<!-- Status Modal -->
 <div id="statusModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -208,57 +206,45 @@
 </div>
 
 <script>
-    // Modal functionality
     document.addEventListener('DOMContentLoaded', function() {
-        // Open role modal and populate form
         const roleButtons = document.querySelectorAll('.role-btn');
         roleButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
                 const role = this.getAttribute('data-role');
                 
-                // Populate form fields
                 document.getElementById('role_user_id').value = id;
                 document.getElementById('update_role').value = role;
                 
-                // Show modal
                 document.getElementById('roleModal').classList.remove('hidden');
             });
         });
-
-        // Open status modal and populate form
         const statusButtons = document.querySelectorAll('.status-btn');
         statusButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
                 const status = this.getAttribute('data-status');
                 
-                // Populate form fields
                 document.getElementById('status_user_id').value = id;
                 document.getElementById('update_status').value = status;
                 
-                // Show modal
                 document.getElementById('statusModal').classList.remove('hidden');
             });
         });
 
-        // Open merite modal and populate form
         const meriteButtons = document.querySelectorAll('.merite-btn');
         meriteButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
                 const merite = this.getAttribute('data-merite');
                 
-                // Populate form fields
                 document.getElementById('merite_user_id').value = id;
                 document.getElementById('update_merite').value = merite;
                 
-                // Show modal
                 document.getElementById('meriteModal').classList.remove('hidden');
             });
         });
 
-        // Close modals
         const closeButtons = document.querySelectorAll('.closeModal');
         closeButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -268,7 +254,6 @@
             });
         });
 
-        // Close modals when clicking outside
         window.addEventListener('click', function(event) {
             if (event.target.classList.contains('fixed') && event.target.classList.contains('inset-0')) {
                 document.getElementById('roleModal').classList.add('hidden');

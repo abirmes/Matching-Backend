@@ -147,32 +147,24 @@
 </div>
 
 <script>
-    // Modal functionality
     document.addEventListener('DOMContentLoaded', function() {
-        // Open create modal
         document.getElementById('openCreateModal').addEventListener('click', function() {
             document.getElementById('createModal').classList.remove('hidden');
         });
 
-        // Open update modal and populate form
         const editButtons = document.querySelectorAll('.edit-btn');
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
                 const name = this.getAttribute('data-name');
                 const description = this.getAttribute('data-description');
-
-                // Populate form fields
                 document.getElementById('edit_id').value = id;
                 document.getElementById('edit_name').value = name;
                 document.getElementById('edit_description').value = description;
-
-                // Show modal
                 document.getElementById('updateModal').classList.remove('hidden');
             });
         });
 
-        // Close modals
         const closeButtons = document.querySelectorAll('.closeModal');
         closeButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -180,8 +172,6 @@
                 document.getElementById('updateModal').classList.add('hidden');
             });
         });
-
-        // Close modals when clicking outside
         window.addEventListener('click', function(event) {
             if (event.target.classList.contains('fixed') && event.target.classList.contains('inset-0')) {
                 document.getElementById('createModal').classList.add('hidden');

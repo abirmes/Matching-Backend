@@ -102,13 +102,11 @@
         </div>
 
         <main class="container mx-auto px-4 py-8">
-            <!-- Tabs -->
             <div class="flex border-b border-gray-200 mb-6">
                 <button id="upcoming-tab" class="tab tab-active px-4 py-2 mr-4">Upcoming</button>
                 <button id="past-tab" class="tab text-gray-600 px-4 py-2 mr-4">Past</button>
             </div>
 
-            <!-- Upcoming Activities Tab Content -->
             @if(session('success'))
             <div class="px-6 py-4 mb-4 text-green-800 bg-green-100 rounded-md">
                 {{ session('success') }}
@@ -203,7 +201,6 @@
                 </div>
             </div>
 
-            <!-- Past Activities Tab Content -->
             <div id="past-content" class="fade-in hidden">
                 <div class="grid grid-cols-1 gap-6">
                     @foreach($userActivities as $activity)
@@ -360,13 +357,10 @@
             const pastContent = document.getElementById('past-content');
 
             upcomingTab.addEventListener('click', function() {
-                // Update tabs
                 upcomingTab.classList.add('tab-active');
                 upcomingTab.classList.remove('text-gray-600');
                 pastTab.classList.remove('tab-active');
                 pastTab.classList.add('text-gray-600');
-
-                // Show/hide content
                 upcomingContent.classList.remove('hidden');
                 pastContent.classList.add('hidden');
             });

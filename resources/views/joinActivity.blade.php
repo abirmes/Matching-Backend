@@ -26,7 +26,6 @@
 </head>
 
 <body class="bg-pattern min-h-screen">
-  <!-- Header -->
   <header class="bg-white shadow-md py-3 sticky top-0 z-10">
     <div class="container mx-auto px-4">
       <nav class="flex items-center justify-between">
@@ -55,17 +54,14 @@
     </div>
   </header>
 
-  <!-- Compact Banner -->
   <div class="dual-gradient text-white py-5">
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-2xl font-bold">Join Activity</h1>
     </div>
   </div>
 
-  <!-- Main Content - Side by Side Layout -->
   <main class="container mx-auto px-4 py-6 mb-8">
     <div class="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto">
-      <!-- Activity Information Card - Left Side -->
       <div class="w-full md:w-2/5">
         <div class="bg-white rounded-xl shadow-lg overflow-hidden sticky top-20">
           <div class="relative">
@@ -126,7 +122,6 @@
         </div>
       </div>
 
-      <!-- Join Form - Right Side -->
       <div class="w-full md:w-3/5">
         <div class="bg-white rounded-xl shadow-lg p-5">
           <h2 class="text-lg font-semibold text-gray-800 mb-4">Complete Your Registration</h2>
@@ -182,7 +177,6 @@
     </div>
   </main>
 
-  <!-- Compact Footer -->
   <footer class="bg-blue-900 text-white py-4">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
@@ -208,7 +202,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Form validation and submission handling
       const joinForm = document.getElementById('joinActivityForm');
       
       joinForm.addEventListener('submit', function(e) {

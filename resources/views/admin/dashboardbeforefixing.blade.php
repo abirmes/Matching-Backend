@@ -95,9 +95,7 @@ Recent Activities Section
     </div>
 </div>
 
-<!-- Activity Stats Cards -->
 <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-    <!-- Popular Categories -->
     <div class="bg-white overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all">
         <div class="p-5">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Popular Categories</h3>
@@ -112,12 +110,10 @@ Recent Activities Section
         </div>
     </div>
 
-    <!-- Activity Growth -->
     <div class="bg-white overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all">
         <div class="p-5">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Activity Growth</h3>
             <div class="h-48 flex items-center justify-center">
-                <!-- Placeholder for chart -->
                 <div class="text-center text-gray-500">
                     <svg xmlns="http:www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -128,7 +124,6 @@ Recent Activities Section
         </div>
     </div>
 
-    <!-- Upcoming Activities -->
     <div class="bg-white overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all">
         <div class="p-5">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Upcoming Activities</h3>
@@ -154,19 +149,3 @@ Recent Activities Section
     </div>
 </div>
 
-<!-- Setup PHP variables for controller -->
-@php
- Define the necessary collections in your controller:
- $recentActivities = Activity::latest()->take(5)->get();
- $popularCategories = DB::table('categories')
-    ->join('activities', 'categories.id', '=', 'activities.categorie_id')
-    ->select('categories.name', DB::raw('count(*) as count'))
-    ->groupBy('categories.name')
-    ->orderBy('count', 'desc')
-    ->take(5)
-    ->get();
- $upcomingActivities = Activity::where('date_debut', '>', now())
-    ->orderBy('date_debut')
-    ->take(3)
-    ->get();
-@endphp

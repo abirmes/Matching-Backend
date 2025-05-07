@@ -56,7 +56,6 @@
 
 <body>
     <div class="min-h-screen bg-pattern">
-        <!-- Header -->
         <header class="bg-white shadow-md py-3 sticky top-0 z-10">
             <div class="container mx-auto px-4">
                 <nav class="flex items-center justify-between">
@@ -86,9 +85,7 @@
             </div>
         </header>
 
-        <!-- Main Content -->
         <main class="container mx-auto px-4 py-5">
-            <!-- Back Button -->
             <nav aria-label="Breadcrumb" class="mb-4">
                 <a href="{{ route('activities.index') }}" class="inline-flex items-center text-pink-600 hover:text-pink-700 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -98,9 +95,7 @@
                 </a>
             </nav>
 
-            <!-- Activity Details Card -->
             <article class="bg-white rounded-xl shadow-lg overflow-hidden mb-6 fade-in">
-                <!-- Activity Image -->
                 <figure class="relative">
                     <img src="{{ $activity->image }}" alt="Activity image {{ $activity->name }}" class="w-full h-48 md:h-64 object-cover">
                     <div class="absolute top-0 right-0 bg-blue-800 text-white px-3 py-1 m-3 rounded-full text-sm font-medium shadow-md">
@@ -113,7 +108,6 @@
                     @endif
                 </figure>
 
-                <!-- Activity Info -->
                 <div class="p-4 md:p-6">
                     <div class="md:flex md:justify-between md:items-start">
                         <div class="md:w-2/3">
@@ -167,7 +161,6 @@
                             
                         </div>
 
-                        <!-- Action Card -->
                         <aside class="md:w-1/3 md:ml-4 bg-gray-50 rounded-lg p-3 shadow-sm mt-3 md:mt-0">
                             <div class="mb-3">
                                 <h3 class="text-base font-semibold text-gray-800 mb-2">Participants</h3>
@@ -185,12 +178,10 @@
                                     </span>
                                 </div>
 
-                                <!-- Progress bar for participants -->
                                 <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
                                     <div class="{{ $activity->participants >= $activity->max_participants ? 'bg-pink-500' : 'bg-pink-600' }} h-2 rounded-full" style="width: {{ ($activity->participants / $activity->max_participants) * 100 }}%"></div>
                                 </div>
 
-                                <!-- Participant Avatars -->
                                 <div class="flex -space-x-2 overflow-hidden mb-2">
                                     @for($i = 0; $i < min(5, $activity->participants); $i++)
                                     <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white" src="https://randomuser.me/api/portraits/men/{{ $i + 10 }}.jpg" alt="Participant">
@@ -202,7 +193,6 @@
                                     @endif
                                 </div>
                                 
-                                <!-- Minimum participants info -->
                                 <div class="text-xs text-gray-600 mb-3">
                                     <span class="font-medium">Required minimum:</span> {{ $activity->min_participants }} participants
                                     @if($activity->participants < $activity->min_participants)
@@ -213,7 +203,6 @@
                                 </div>
                             </div>
 
-                            <!-- Action Buttons -->
                             <form action="/activity/join/{{ $activity->id }}" method="get">
                                 @csrf
                                 <button type="submit" class="w-full py-2 rounded-lg text-sm font-medium mb-2 transition-all {{ $activity->participants >= $activity->max_participants ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700 text-white shadow-md hover:shadow-lg' }}" {{ $activity->participants >= $activity->max_participants ? 'disabled' : '' }}>
@@ -246,15 +235,12 @@
                         </aside>
                     </div>
 
-                    <!-- Host Information and Location in a grid -->
                     <div class="grid md:grid-cols-2 gap-4 border-t border-gray-200 pt-4 mt-4">
                      
 
-                        <!-- Location Map -->
                         <section>
                             <h3 class="text-base font-semibold text-gray-800 mb-3">Location</h3>
                             <figure class="bg-gray-100 rounded-lg h-40 mb-2 flex items-center justify-center" id="map">
-                                <!-- Placeholder for map -->
                                 <div class="text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-gray-400 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -273,7 +259,6 @@
             </article>
         </main>
 
-        <!-- Footer -->
         <footer class="bg-blue-900 text-white py-10">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row justify-between items-center">

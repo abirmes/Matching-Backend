@@ -106,7 +106,6 @@
     </div>
 </div>
 
-<!-- Update Modal -->
 <div id="updateModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -121,8 +120,8 @@
                         <div class="mt-4">
                             <form action="{{ route('adresses.update', ['id' => $adresse->id]) }}" method="POST" id="updateForm">
                                 @csrf
-                                @method('PUT') <!-- Ensure it's a PUT request to update -->
-                                <input type="hidden" id="edit_id" name="id" value="{{ $adresse->id }}"> <!-- Set the category ID -->
+                                @method('PUT') 
+                                <input type="hidden" id="edit_id" name="id" value="{{ $adresse->id }}"> 
 
                                 <div class="mb-4">
                                     <label for="edit_country" class="block text-sm font-medium text-gray-700">country</label>
@@ -157,14 +156,11 @@
 </div>
 
 <script>
-    // Modal functionality
     document.addEventListener('DOMContentLoaded', function() {
-        // Open create modal
         document.getElementById('openCreateModal').addEventListener('click', function() {
             document.getElementById('createModal').classList.remove('hidden');
         });
 
-        // Open update modal and populate form
         const editButtons = document.querySelectorAll('.edit-btn');
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -174,18 +170,15 @@
                 const boulevard = this.getAttribute('data-boulevard');
 
 
-                // Populate form fields
                 document.getElementById('edit_id').value = id;
                 document.getElementById('edit_country').value = country;
                 document.getElementById('edit_city').value = city;
                 document.getElementById('edit_boulevard').value = boulevard;
 
-                // Show modal
                 document.getElementById('updateModal').classList.remove('hidden');
             });
         });
 
-        // Close modals
         const closeButtons = document.querySelectorAll('.closeModal');
         closeButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -194,7 +187,6 @@
             });
         });
 
-        // Close modals when clicking outside
         window.addEventListener('click', function(event) {
             if (event.target.classList.contains('fixed') && event.target.classList.contains('inset-0')) {
                 document.getElementById('createModal').classList.add('hidden');

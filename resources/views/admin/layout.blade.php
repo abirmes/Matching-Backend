@@ -180,28 +180,6 @@
             </main>
         </div>
     </div>
-
-    <script>
-        function toggleMobileSidebar() {
-            const mobileSidebar = document.getElementById('mobileSidebar');
-            mobileSidebar.style.display = mobileSidebar.style.display === 'none' ? 'block' : 'none';
-        }
-
-        const profileButton = document.getElementById('profileButton');
-        const profileDropdown = document.getElementById('profileDropdown');
-
-        if (profileButton && profileDropdown) {
-            profileButton.addEventListener('click', function() {
-                profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'block' : 'none';
-            });
-
-            document.addEventListener('click', function(event) {
-                if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-                    profileDropdown.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 
 </html>

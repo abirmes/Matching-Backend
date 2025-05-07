@@ -368,10 +368,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Handle image preview
     document.getElementById('previewImageBtn').addEventListener('click', function() {
       const imageUrl = document.getElementById('image_url').value;
       if (imageUrl) {
@@ -382,24 +380,15 @@
       }
     });
 
-    // Show create center modal
     document.getElementById('createCenterBtn').addEventListener('click', function() {
       document.getElementById('createCenterModal').classList.remove('hidden');
     });
 
-    // Close create center modal
     document.getElementById('closeModalBtn').addEventListener('click', function() {
       document.getElementById('createCenterModal').classList.add('hidden');
     });
 
 
-
-
-
-
-
-
-    // Close modal when clicking outside
     window.addEventListener('click', function(event) {
       const modal = document.getElementById('createCenterModal');
       if (event.target === modal) {

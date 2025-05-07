@@ -127,7 +127,7 @@ class UserController extends Controller
         if($participant->status === 'banned'){
             return redirect()->back()->with('error' ,'you are banned from any activity for a while ');
         }
-        if($activity->participants === $activity->max_participznts){
+        if($activity->participants === $activity->max_participants){
             return redirect()->back()->with('error' ,'this activity has reached it limits participants ');
         }
         try {
